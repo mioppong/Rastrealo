@@ -20,8 +20,8 @@ const defaultReducer = (state = initialState, action) => {
       return newState;
 
     case types.LOGIN_SUCCESS:
-      const { email, token, id } = action.action;
-
+      const { email, token, id } = action.payload;
+      newState.userInfo.id = id;
       newState.token = token;
       newState.userInfo.email = email;
       return newState;
@@ -38,4 +38,6 @@ const defaultReducer = (state = initialState, action) => {
   }
 };
 
-export default { initialState, reducer: defaultReducer };
+const exportObj = { initialState, reducer: defaultReducer };
+
+export default exportObj;

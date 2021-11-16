@@ -15,6 +15,16 @@ const Welcome = (props) => {
     }
   }, [props.user]);
 
+  const loginButtonStyle = {
+    height: 50,
+    width: 50,
+    borderRadius: 10,
+    backgroundColor: "#516a94",
+    color: "white",
+    margin: 2,
+    borderColor: "white",
+    borderWidth: 1,
+  };
   return (
     <div className="container">
       <div className="loginContainer">
@@ -38,16 +48,7 @@ const Welcome = (props) => {
           <Button
             children="login"
             onClick={() => props.login({ email, password })}
-            style={{
-              height: 50,
-              width: 50,
-              borderRadius: 10,
-              backgroundColor: "#0e387a",
-              color: "white",
-              margin: 2,
-              borderColor: "white",
-              borderWidth: 1,
-            }}
+            style={loginButtonStyle}
           />
         </div>
       </div>

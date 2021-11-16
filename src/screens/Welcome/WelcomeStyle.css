@@ -1,6 +1,6 @@
 .container {
   height: 100vh;
-  background-color: #0e387a;
+
   align-items: center;
   justify-content: center;
   flex: 1;
@@ -16,7 +16,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #516a94;
+  /* background-color: #516a94; */
   height: 50vh;
   width: 50vh;
   -webkit-box-shadow: 5px 5px 15px 5px #516a94;
