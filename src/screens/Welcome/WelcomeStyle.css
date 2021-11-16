@@ -1,0 +1,29 @@
+.container {
+  height: 100vh;
+  background-color: #0e387a;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  display: flex;
+  /* -webkit-box-shadow: 5px 5px 15px 5px #0e387a; */
+  -webkit-box-shadow: 5px 5px 49px 5px #9fafca;
+  box-shadow: 5px 5px 49px 5px #9fafca;
+  border-radius: 20vh;
+}
+
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #516a94;
+  height: 50vh;
+  width: 50vh;
+  -webkit-box-shadow: 5px 5px 15px 5px #516a94;
+  box-shadow: 5px 5px 15px 5px #516a94;
+  border-radius: 100vh;
+}
+
+.inputStyles {
+  margin: 10px;
+}
