@@ -1,4 +1,5 @@
 import { Button, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -8,12 +9,14 @@ import "./WelcomeStyle.css";
 const Welcome = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (props.user.token) {
       console.log("the token is", props.user.token);
+      navigate("/dashboard");
     }
-  }, [props.user]);
+  }, [props.user, navigate]);
 
   const loginButtonStyle = {
     height: 50,

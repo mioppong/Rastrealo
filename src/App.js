@@ -1,31 +1,28 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, useRoutes } from "react-router-dom";
+
 import { store } from "./redux/store";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import { Welcome, Dashboard } from "./screens";
 
 const App = () => {
-  let routes = useRoutes([
-    { path: "/", element: <Welcome /> },
-    { path: "dashboard", element: <Dashboard /> },
-  ]);
-  return routes;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 const AppWrapper = () => {
   return (
-    <Router>
-      <App />
-    </Router>
-  );
-};
-
-const AppWithRedux = () => {
-  return (
     <Provider store={store}>
-      <AppWrapper />
+      <App />
     </Provider>
   );
 };
-export default AppWithRedux;
+
+export default AppWrapper;
