@@ -5,7 +5,7 @@ import defaultReducer from "./defaultReducer";
 // if we create a new reducer, add it to the line below, and import it above
 
 const reducers = combineReducers({
-  user: defaultReducer.reducer,
+  homeStore: defaultReducer.reducer,
 });
 
 export default reducers;

@@ -5,9 +5,9 @@ import { store } from "./redux/store";
 import { Welcome, Dashboard } from "./screens";
 
 const App = (props) => {
-  const user = useSelector((state) => state.user);
+  const homeStore = useSelector((state) => state.homeStore);
 
-  if (user.token) {
+  if (homeStore.token) {
     return <Dashboard />;
   } else {
     return <Welcome />;

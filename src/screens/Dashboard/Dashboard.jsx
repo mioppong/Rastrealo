@@ -6,10 +6,11 @@ import { login, logout } from "../../redux/actions";
 import "./DashboardStyle.css";
 
 const Dashboard = (props) => {
-  const { user } = props;
+  const { homeStore } = props;
   const [state, setstate] = useState(false);
+  console.log("user redux is", homeStore.users);
 
-  if (props.user && props.user.token) {
+  if (homeStore && homeStore.token) {
     return (
       <div className="container">
         <Paper elevation={10} className="sideBarContainer">
@@ -38,7 +39,7 @@ const Dashboard = (props) => {
           <Button children="Log Out" onClick={logout} />
           <Button
             children="Check redux"
-            onClick={() => console.log(user.users)}
+            onClick={() => console.log(homeStore.users)}
           />
 
           {/* {user.transactions.map((item) => {
@@ -51,7 +52,7 @@ const Dashboard = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  homeStore: state.homeStore,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -75,7 +75,7 @@ const AddUser = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  homeStore: state.homeStore,
 });
 
 const mapDispatchToProps = (dispatch) => ({
