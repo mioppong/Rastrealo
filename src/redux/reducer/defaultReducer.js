@@ -1,7 +1,7 @@
 import types from "../actionTypes";
 
 export const initialState = {
-  userInfo: {
+  accountOwnerInfo: {
     id: "",
     firstName: "",
     lastName: "",
@@ -9,7 +9,26 @@ export const initialState = {
   },
   token: "",
   loading: false,
-  data: {},
+  users: [
+    { name: "daniel", number: "456", otherInfo: "" },
+    { name: "mike", number: "123", otherInfo: "" },
+  ],
+  transactions: [
+    {
+      from: { name: "mike", number: "123", otherInfo: "" },
+      to: { name: "daniel", number: "456", otherInfo: " " },
+      amount: "2000",
+      currency: "CAD",
+      date: ""
+    },
+    {
+      from: { name: "mike", number: "123", otherInfo: "" },
+      to: { name: "daniel", number: "456", otherInfo: " " },
+      amount: "2000",
+      currency: "CAD",
+      date: ""
+    },
+  ],
 };
 
 const defaultReducer = (state = initialState, action) => {
@@ -21,17 +40,27 @@ const defaultReducer = (state = initialState, action) => {
 
     case types.LOGIN_SUCCESS:
       const { email, token, id } = action.payload;
-      newState.userInfo.id = id;
+      newState.accountOwnerInfo.id = id;
       newState.token = token;
-      newState.userInfo.email = email;
+      newState.accountOwnerInfo.email = email;
       return newState;
 
     case types.LOGIN_FAILED:
       return newState;
 
-    case types.LOGOUT:
-      newState = {};
+    case types.CREATE_USER_START:
       return newState;
+
+    case types.CREATE_USER_SUCCESS:
+      const { newUser } = action.payload;
+      newState.users.push(newUser);
+      return newState;
+
+    case types.CREATE_USER_FAILED:
+      return newState;
+
+    case types.LOGOUT:
+      return {};
 
     default:
       return newState;

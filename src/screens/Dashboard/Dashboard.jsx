@@ -1,11 +1,12 @@
 import { Button, Modal, Paper } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import AddButton from "../../components/AddUser/AddButton";
+import AddUser from "../../components/AddUser/AddUser";
 import { login, logout } from "../../redux/actions";
 import "./DashboardStyle.css";
 
 const Dashboard = (props) => {
+  const { user } = props;
   const [state, setstate] = useState(false);
 
   if (props.user && props.user.token) {
@@ -32,8 +33,17 @@ const Dashboard = (props) => {
             marginLeft: "25px",
           }}
         >
-          <AddButton />
+          <AddUser />
           <Button children="Create Transaction" />
+          <Button children="Log Out" onClick={logout} />
+          <Button
+            children="Check redux"
+            onClick={() => console.log(user.users)}
+          />
+
+          {/* {user.transactions.map((item) => {
+            return <div>{item}</div>;
+          })} */}
         </Paper>
       </div>
     );

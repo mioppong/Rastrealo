@@ -1,8 +1,9 @@
 import { Button, Modal, Paper, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { createUser } from "../../redux/actions";
 
-const AddButton = () => {
+const AddUser = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
@@ -12,6 +13,18 @@ const AddButton = () => {
     justifyContent: "center",
     display: "flex",
     alignItems: "center",
+  };
+
+  const clearScreen = () => {
+    // clear screen and clear modal
+    setName("");
+    setNumber("");
+    setOtherInfo("");
+    closeModal();
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
   };
   return (
     <>
@@ -36,6 +49,7 @@ const AddButton = () => {
             />
             <TextField
               value={number}
+              type="number"
               style={{ marginTop: "10px" }}
               onChange={(value) => setNumber(value.target.value)}
             />
@@ -45,13 +59,14 @@ const AddButton = () => {
               onChange={(value) => setOtherInfo(value.target.value)}
             />
 
-            <Button children="Close" onClick={() => setModalVisible(false)} />
             <Button
               children="done"
-              onClick={() =>
-                console.log("done function", { name, number, otherInfo })
-              }
+              onClick={() => {
+                props.createUser({ name, number, otherInfo });
+                clearScreen();
+              }}
             />
+            <Button children="Close" onClick={closeModal} />
           </Paper>
         </div>
       </Modal>
@@ -59,4 +74,14 @@ const AddButton = () => {
   );
 };
 
-export default AddButton;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  createUser: (payload) => {
+    dispatch(createUser(payload));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddUser);
