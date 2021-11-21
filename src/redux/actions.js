@@ -28,3 +28,15 @@ export const createUser = (payload) => async (dispatch) => {
   });
   dispatch({ type: types.CREATE_USER_SUCCESS, payload: { newUser: payload } });
 };
+
+export const creteTransaction = (payload) => async (dispatch) => {
+
+  dispatch({ type: types.CREATE_TRANSACTION_START });
+
+  const url = "https://618de9ebfe09aa001744092d.mockapi.io/createUser";
+
+  await axios.post(url, { payload }).catch((err) => {
+    return dispatch({ type: types.CREATE_TRANSACTION_FAILED });
+  });
+  dispatch({ type: types.CREATE_TRANSACTION_SUCCESS, payload: { newTransaction: payload } });
+};

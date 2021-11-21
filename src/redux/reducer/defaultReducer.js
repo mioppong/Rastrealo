@@ -19,16 +19,17 @@ export const initialState = {
       to: { name: "daniel", number: "456", otherInfo: " " },
       amount: "2000",
       currency: "CAD",
-      date: ""
+      date: "",
     },
     {
       from: { name: "mike", number: "123", otherInfo: "" },
       to: { name: "daniel", number: "456", otherInfo: " " },
       amount: "2000",
       currency: "CAD",
-      date: ""
+      date: "",
     },
   ],
+  
 };
 
 const defaultReducer = (state = initialState, action) => {
@@ -57,6 +58,17 @@ const defaultReducer = (state = initialState, action) => {
       return newState;
 
     case types.CREATE_USER_FAILED:
+      return newState;
+
+    case types.CREATE_TRANSACTION_START:
+      return newState;
+
+    case types.CREATE_TRANSACTION_SUCCESS:
+      const { newTransaction } = action.payload;
+      newState.transactions.push(newTransaction);
+      return newState;
+
+    case types.CREATE_TRANSACTION_FAILED:
       return newState;
 
     case types.LOGOUT:

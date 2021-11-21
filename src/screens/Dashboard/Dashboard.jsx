@@ -2,6 +2,7 @@ import { Button, Modal, Paper } from "@mui/material";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import AddUser from "../../components/AddUser/AddUser";
+import CreateTransaction from "../../components/CreateTransaction/CreateTransaction";
 import { login, logout } from "../../redux/actions";
 import "./DashboardStyle.css";
 
@@ -35,16 +36,19 @@ const Dashboard = (props) => {
           }}
         >
           <AddUser />
-          <Button children="Create Transaction" />
+          <CreateTransaction />
           <Button children="Log Out" onClick={logout} />
           <Button
             children="Check redux"
             onClick={() => console.log(homeStore.users)}
           />
 
-          {/* {user.transactions.map((item) => {
-            return <div>{item}</div>;
-          })} */}
+          {homeStore.transactions.map((item, index) => {
+            return <div key={index}>{item.amount}</div>;
+          })}
+          {homeStore.users.map((item, index) => {
+            return <div key={index}>{item.name}</div>;
+          })}
         </Paper>
       </div>
     );
