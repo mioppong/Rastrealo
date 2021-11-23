@@ -1,8 +1,8 @@
 import { Autocomplete, Button, Modal, Paper, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { contains } from "../../api";
-import { creteTransaction } from "../../redux/actions";
+import { contains, generateID } from "../../api";
+import { createTransaction } from "../../redux/actions";
 
 const SearchItem = ({ users }) => {
   const { name, number, otherInfo } = users;
@@ -24,12 +24,12 @@ const CreateTransaction = (props) => {
   const [amount, setAmount] = useState();
   const [currency, setCurrency] = useState();
 
-  const clearScreen = () => {
+  const clearScreen = (props) => {
     // clear screen and clear modal
-    setAmount("");
-    setSender("");
-    setCurrency("");
-    setRecipient("");
+    setAmount();
+    setSender();
+    setCurrency();
+    setRecipient();
     closeModal();
   };
 
@@ -41,10 +41,19 @@ const CreateTransaction = (props) => {
     display: "flex",
     alignItems: "center",
   };
-  const options = [
-    { label: "The Godfather", id: 1 },
-    { label: "Pulp Fiction", id: 2 },
-  ];
+
+  const handleDone = () => {
+    const newTransaction = {
+      id: generateID(),
+      from: sender,
+      to: recipient,
+      amount,
+      date: Date.now(),
+    };
+    props.createTransaction(newTransaction);
+    setModalVisible(false);
+  };
+
   return (
     <>
       <Button
@@ -64,51 +73,38 @@ const CreateTransaction = (props) => {
             }}
           >
             <Autocomplete
-              getOptionLabel={(item) =>
-                // <SearchItem key={item.id} users={item} />
-                item.name
-              }
+              onChange={(event, value) => setSender(value)}
+              getOptionLabel={(item) => item.id}
               options={homeStore.users}
               filterOptions={(arrayOfUsers, typed) => {
-                var filtered = arrayOfUsers.filter(function (
-                  value,
-                ) {
+                var filtered = arrayOfUsers.filter(function (value) {
                   return contains(value, typed.inputValue);
                 });
-
                 return filtered;
               }}
               renderInput={(params) => <TextField {...params} label="Sender" />}
-              sx={{ width: 300 }}
             />
-            {/* <Autocomplete
-              getOptionLabel={(item) => <SearchItem users={item} />}
+            <Autocomplete
+              onChange={(event, value) => setRecipient(value)}
+              getOptionLabel={(item) => item.name}
               options={homeStore.users}
-              //   filterOptions={(a) => console.log("we got", a)}
-              renderInput={(params) => (
-                <TextField {...params} label="Recipient"   onChange={(value) => setTypedSender(value.target.value)}
-                />
-              )}
-                value={typedSender}
-              sx={{ width: 300 }}
-            /> */}
+              filterOptions={(array, typed) => {
+                var filtered = array.filter(function (value) {
+                  return contains(value, typed.inputValue);
+                });
+                return filtered;
+              }}
+              renderInput={(params) => <TextField {...params} label="Sender" />}
+            />
 
             <TextField
-              value={recipient}
-              style={{ marginTop: "10px" }}
-              onChange={(value) => setRecipient(value.target.value)}
-            />
-            <TextField
-              value={sender}
+              value={amount}
+              inputMode="numeric"
               style={{ marginTop: "10px" }}
               onChange={(value) => setAmount(value.target.value)}
             />
-            <TextField
-              value={sender}
-              style={{ marginTop: "10px" }}
-              onChange={(value) => setCurrency(value.target.value)}
-            />
-            <Button children="done" onClick={() => console.log("")} />
+
+            <Button children="done" onClick={handleDone} />
             <Button children="Close" onClick={clearScreen} />
           </Paper>
         </div>
@@ -122,8 +118,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  creteTransaction: (payload) => {
-    dispatch(creteTransaction(payload));
+  createTransaction: (payload) => {
+    dispatch(createTransaction(payload));
   },
 });
 

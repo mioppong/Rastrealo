@@ -9,7 +9,6 @@ import "./DashboardStyle.css";
 const Dashboard = (props) => {
   const { homeStore } = props;
   const [state, setstate] = useState(false);
-  console.log("user redux is", homeStore.users);
 
   if (homeStore && homeStore.token) {
     return (
