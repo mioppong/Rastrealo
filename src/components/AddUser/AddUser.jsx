@@ -1,4 +1,4 @@
-import { Button, Modal, Paper, TextField } from "@mui/material";
+import { Alert, Button, Modal, Paper, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createUser } from "../../redux/actions";
@@ -8,6 +8,7 @@ const AddUser = (props) => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [otherInfo, setOtherInfo] = useState("");
+  const { homeStore } = props;
 
   const modalContainerStyle = {
     justifyContent: "center",
@@ -26,6 +27,20 @@ const AddUser = (props) => {
   const closeModal = () => {
     setModalVisible(false);
   };
+
+  const handleCreateUser = () => {
+    const numberExists = homeStore.users.find((item) => item.number === number);
+
+    console.log("new number is", number);
+    console.log("array of numbers is", homeStore.users);
+    if (numberExists) {
+      console.log("PHONE NUMBER EXISTS");
+      alert("HELLOO");
+    } else {
+      props.createUser({ name, number, otherInfo });
+      clearScreen();
+    }
+  };
   return (
     <>
       <Button children="Create User" onClick={() => setModalVisible(true)} />
@@ -43,6 +58,7 @@ const AddUser = (props) => {
             }}
           >
             <TextField
+              type="text"
               value={name}
               style={{ marginTop: "10px" }}
               onChange={(value) => setName(value.target.value)}
@@ -59,13 +75,7 @@ const AddUser = (props) => {
               onChange={(value) => setOtherInfo(value.target.value)}
             />
 
-            <Button
-              children="done"
-              onClick={() => {
-                props.createUser({ name, number, otherInfo });
-                clearScreen();
-              }}
-            />
+            <Button children="done" onClick={() => handleCreateUser()} />
             <Button children="Close" onClick={closeModal} />
           </Paper>
         </div>
