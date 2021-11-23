@@ -1,16 +1,15 @@
 import { Autocomplete, Button, Modal, Paper, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { contains } from "../../api";
 import { creteTransaction } from "../../redux/actions";
 
 const SearchItem = ({ users }) => {
-    console.log('transaction we got is', users)
   const { name, number, otherInfo } = users;
   return (
     <>
       <div>{name}</div>
       <div>{number}</div>
-    
     </>
   );
 };
@@ -18,6 +17,8 @@ const SearchItem = ({ users }) => {
 const CreateTransaction = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [sender, setSender] = useState();
+  const [typedSender, setTypedSender] = useState();
+  const [typedRecipient, setTypedRecipient] = useState();
   const [recipient, setRecipient] = useState();
   const { homeStore } = props;
   const [amount, setAmount] = useState();
@@ -63,17 +64,35 @@ const CreateTransaction = (props) => {
             }}
           >
             <Autocomplete
-              getOptionLabel={(item) => <SearchItem users={item} />}
+              getOptionLabel={(item) =>
+                // <SearchItem key={item.id} users={item} />
+                item.name
+              }
               options={homeStore.users}
-            //   filterOptions={(a) => console.log("we got", a)}
-              renderInput={(params) => <TextField {...params} label="Movie" />}
+              filterOptions={(arrayOfUsers, typed) => {
+                var filtered = arrayOfUsers.filter(function (
+                  value,
+                ) {
+                  return contains(value, typed.inputValue);
+                });
+
+                return filtered;
+              }}
+              renderInput={(params) => <TextField {...params} label="Sender" />}
               sx={{ width: 300 }}
             />
-            <TextField
-              value={sender}
-              style={{ marginTop: "10px" }}
-              onChange={(value) => setSender(value.target.value)}
-            />
+            {/* <Autocomplete
+              getOptionLabel={(item) => <SearchItem users={item} />}
+              options={homeStore.users}
+              //   filterOptions={(a) => console.log("we got", a)}
+              renderInput={(params) => (
+                <TextField {...params} label="Recipient"   onChange={(value) => setTypedSender(value.target.value)}
+                />
+              )}
+                value={typedSender}
+              sx={{ width: 300 }}
+            /> */}
+
             <TextField
               value={recipient}
               style={{ marginTop: "10px" }}
