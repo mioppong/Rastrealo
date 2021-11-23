@@ -42,13 +42,28 @@ const Dashboard = (props) => {
             children="Check redux"
             onClick={() => console.log(homeStore.users)}
           />
+          <div style={{ display: "flex" }}>
+            {homeStore.transactions.map((item, index) => {
+              return (
+                <div style={{ margin: 10 }}>
+                  <div key={index}>{item.from.name}</div>
+                  <div key={index}>{item.amount}</div>
+                  <div key={index}>{item.to.name}</div>
+                </div>
+              );
+            })}
+          </div>
 
-          {homeStore.transactions.map((item, index) => {
-            return <div key={index}>{item.amount}</div>;
-          })}
-          {homeStore.users.map((item, index) => {
-            return <div key={index}>{item.name}</div>;
-          })}
+          <div style={{ display: "flex" }}>
+            {homeStore.users.map((item, index) => {
+              return (
+                <div style={{ margin: 10 }}>
+                  <div key={index}>{item.name}</div>
+                  <div key={index}>{item.number}</div>
+                </div>
+              );
+            })}
+          </div>
         </Paper>
       </div>
     );
