@@ -9,37 +9,8 @@ export const initialState = {
   },
   token: "",
   loading: false,
-  users: [
-    { id: "435345", name: "daniel", number: "456", otherInfo: "" },
-    { id: "234325342", name: "mike", number: "123", otherInfo: "" },
-    { id: "4353453453", name: "mike", number: "123", otherInfo: "" },
-  ],
-  transactions: [
-    {
-      id: "9478567",
-      from: { name: "mike", number: "123", otherInfo: "" },
-      to: { name: "daniel", number: "456", otherInfo: " " },
-      amount: "2000",
-      currency: "CAD",
-      date: "",
-    },
-    {
-      id: "324234",
-      from: { name: "mike", number: "123", otherInfo: "" },
-      to: { name: "daniel", number: "456", otherInfo: " " },
-      amount: "2000",
-      currency: "CAD",
-      date: "",
-    },
-    {
-      id: "3453453453",
-      from: { name: "mike", number: "123", otherInfo: "" },
-      to: { name: "daniel", number: "456", otherInfo: " " },
-      amount: "2000",
-      currency: "CAD",
-      date: "",
-    },
-  ],
+  users: [],
+  transactions: [],
 };
 
 const defaultReducer = (state = initialState, action) => {
@@ -50,10 +21,12 @@ const defaultReducer = (state = initialState, action) => {
       return newState;
 
     case types.LOGIN_SUCCESS:
-      const { email, token, id } = action.payload;
+      const { email, token, id, users, transactions } = action.payload;
       newState.accountOwnerInfo.id = id;
       newState.token = token;
       newState.accountOwnerInfo.email = email;
+      newState.users = users;
+      newState.transactions = transactions;
       return newState;
 
     case types.LOGIN_FAILED:

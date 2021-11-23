@@ -4,25 +4,23 @@ import { connect } from "react-redux";
 import { contains, generateID } from "../../api";
 import { createTransaction } from "../../redux/actions";
 
-const SearchItem = ({ users }) => {
-  const { name, number, otherInfo } = users;
-  return (
-    <>
-      <div>{name}</div>
-      <div>{number}</div>
-    </>
-  );
-};
+// const SearchItem = ({ users }) => {
+//   const { name, number, otherInfo } = users;
+//   return (
+//     <>
+//       <div>{name}</div>
+//       <div>{number}</div>
+//     </>
+//   );
+// };
 
 const CreateTransaction = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [sender, setSender] = useState();
-  const [typedSender, setTypedSender] = useState();
-  const [typedRecipient, setTypedRecipient] = useState();
   const [recipient, setRecipient] = useState();
   const { homeStore } = props;
-  const [amount, setAmount] = useState();
-  const [currency, setCurrency] = useState();
+  const [amount, setAmount] = useState("");
+  const [, setCurrency] = useState();
 
   const clearScreen = (props) => {
     // clear screen and clear modal
@@ -74,7 +72,7 @@ const CreateTransaction = (props) => {
           >
             <Autocomplete
               onChange={(event, value) => setSender(value)}
-              getOptionLabel={(item) => item.id}
+              getOptionLabel={(item) => item.name}
               options={homeStore.users}
               filterOptions={(arrayOfUsers, typed) => {
                 var filtered = arrayOfUsers.filter(function (value) {
@@ -99,7 +97,7 @@ const CreateTransaction = (props) => {
 
             <TextField
               value={amount}
-              inputMode="numeric"
+              type="number"
               style={{ marginTop: "10px" }}
               onChange={(value) => setAmount(value.target.value)}
             />

@@ -39,15 +39,15 @@ const Dashboard = (props) => {
           <Button children="Log Out" onClick={logout} />
           <Button
             children="Check redux"
-            onClick={() => console.log(homeStore.users)}
+            onClick={() => console.log(homeStore)}
           />
           <div style={{ display: "flex" }}>
             {homeStore.transactions.map((item, index) => {
               return (
-                <div style={{ margin: 10 }}>
-                  <div key={index}>{item.from.name}</div>
-                  <div key={index}>{item.amount}</div>
-                  <div key={index}>{item.to.name}</div>
+                <div style={{ margin: 10 }} key={index}>
+                  <div>{item.from.name}</div>
+                  <div>{item.amount}</div>
+                  <div>{item.to.name}</div>
                 </div>
               );
             })}
@@ -56,9 +56,9 @@ const Dashboard = (props) => {
           <div style={{ display: "flex" }}>
             {homeStore.users.map((item, index) => {
               return (
-                <div style={{ margin: 10 }}>
-                  <div key={index}>{item.name}</div>
-                  <div key={index}>{item.number}</div>
+                <div style={{ margin: 10 }} key={index}>
+                  <div>{item.name}</div>
+                  <div>{item.number}</div>
                 </div>
               );
             })}
