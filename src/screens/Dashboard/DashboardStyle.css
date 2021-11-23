@@ -1,0 +1,10 @@
+.container {
+  flex-direction: row;
+  display: flex;
+}
+
+.sideBarContainer {
+  width: 25vh;
+  height: 100vh;
+  background-color: red;
+}
