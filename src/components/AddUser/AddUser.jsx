@@ -21,18 +21,12 @@ const AddUser = (props) => {
     setName("");
     setNumber("");
     setOtherInfo("");
-    closeModal();
-  };
-
-  const closeModal = () => {
     setModalVisible(false);
   };
 
   const handleCreateUser = () => {
     const numberExists = homeStore.users.find((item) => item.number === number);
 
-    console.log("new number is", number);
-    console.log("array of numbers is", homeStore.users);
     if (numberExists) {
       console.log("PHONE NUMBER EXISTS");
       alert("HELLOO");
@@ -76,7 +70,7 @@ const AddUser = (props) => {
             />
 
             <Button children="done" onClick={() => handleCreateUser()} />
-            <Button children="Close" onClick={closeModal} />
+            <Button children="Close" onClick={clearScreen} />
           </Paper>
         </div>
       </Modal>

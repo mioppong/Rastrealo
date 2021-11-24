@@ -5,6 +5,18 @@ import AddUser from "../../components/AddUser/AddUser";
 import CreateTransaction from "../../components/CreateTransaction/CreateTransaction";
 import { login, logout } from "../../redux/actions";
 import "./DashboardStyle.css";
+import { CSVLink } from "react-csv";
+
+const csvData = [
+  ["from", "to", "CAN", "USD", "GNC"],
+  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+];
 
 const Dashboard = (props) => {
   const { homeStore } = props;
@@ -34,6 +46,10 @@ const Dashboard = (props) => {
             marginLeft: "25px",
           }}
         >
+          <CSVLink filename="mike.csv" data={csvData}>
+            Export to CSV
+          </CSVLink>
+
           <AddUser />
           <CreateTransaction />
           <Button children="Log Out" onClick={logout} />
@@ -46,8 +62,9 @@ const Dashboard = (props) => {
               return (
                 <div style={{ margin: 10 }} key={index}>
                   <div>{item.from.name}</div>
-                  <div>{item.amount}</div>
                   <div>{item.to.name}</div>
+                  <div>{item.amount}</div>
+                  <div>{item.date}</div>
                 </div>
               );
             })}
