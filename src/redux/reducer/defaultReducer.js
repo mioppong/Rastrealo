@@ -11,6 +11,7 @@ export const initialState = {
   loading: false,
   users: [],
   transactions: [],
+  currencies: ['GHS', 'CAD', 'USD']
 };
 
 const defaultReducer = (state = initialState, action) => {
@@ -44,11 +45,13 @@ const defaultReducer = (state = initialState, action) => {
       return newState;
 
     case types.CREATE_TRANSACTION_START:
+      newState.loading = true
       return newState;
 
     case types.CREATE_TRANSACTION_SUCCESS:
       const { newTransaction } = action.payload;
       newState.transactions.push(newTransaction);
+      newState.loading = false
       return newState;
 
     case types.CREATE_TRANSACTION_FAILED:

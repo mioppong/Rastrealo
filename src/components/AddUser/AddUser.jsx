@@ -8,6 +8,7 @@ const AddUser = (props) => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [otherInfo, setOtherInfo] = useState("");
+  const { homeStore } = props;
 
   const modalContainerStyle = {
     justifyContent: "center",
@@ -20,11 +21,20 @@ const AddUser = (props) => {
     setName("");
     setNumber("");
     setOtherInfo("");
-    closeModal();
+    setModalVisible(false);
   };
 
-  const closeModal = () => {
-    setModalVisible(false);
+  const handleCreateUser = () => {
+    const numberExists = homeStore.users.find(
+      (item) => `${item.number}` === `${number}`
+    );
+
+    if (numberExists) {
+      alert("PHONE NUMER ALREADY EXISTS");
+    } else {
+      props.createUser({ name, number, otherInfo });
+      clearScreen();
+    }
   };
   return (
     <>
@@ -43,6 +53,7 @@ const AddUser = (props) => {
             }}
           >
             <TextField
+              type="text"
               value={name}
               style={{ marginTop: "10px" }}
               onChange={(value) => setName(value.target.value)}
@@ -59,14 +70,8 @@ const AddUser = (props) => {
               onChange={(value) => setOtherInfo(value.target.value)}
             />
 
-            <Button
-              children="done"
-              onClick={() => {
-                props.createUser({ name, number, otherInfo });
-                clearScreen();
-              }}
-            />
-            <Button children="Close" onClick={closeModal} />
+            <Button children="done" onClick={() => handleCreateUser()} />
+            <Button children="Close" onClick={clearScreen} />
           </Paper>
         </div>
       </Modal>
