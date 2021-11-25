@@ -6,6 +6,7 @@ import CreateTransaction from "../../components/CreateTransaction/CreateTransact
 import { login, logout } from "../../redux/actions";
 import "./DashboardStyle.css";
 import { CSVLink } from "react-csv";
+import AllTransactions from "../../components/AllTransactions/AllTransactions";
 
 const csvData = [
   ["from", "to", "CAN", "USD", "GNC"],
@@ -20,23 +21,16 @@ const csvData = [
 
 const Dashboard = (props) => {
   const { homeStore } = props;
-  const [state, setstate] = useState(false);
+  const [modifiedTransactions, setModifiedTransactions] = useState(
+    homeStore.transactions
+  );
+
+  const [filterActive, setFilterActive] = useState(false);
 
   if (homeStore && homeStore.token) {
     return (
       <div className="container">
-        <Paper elevation={10} className="sideBarContainer">
-          <Button
-            onClick={() => setstate(true)}
-            style={{ width: "50px", height: "50px", backgroundColor: "red" }}
-          />
-          <Modal
-            open={state}
-            style={{ width: "50px", height: "50px", backgroundColor: "blue" }}
-          >
-            <Paper style={{ width: "50px", height: "50px" }} />
-          </Modal>
-        </Paper>
+        <Paper elevation={10} className="sideBarContainer"></Paper>
 
         <Paper
           elevation={10}
@@ -57,18 +51,9 @@ const Dashboard = (props) => {
             children="Check redux"
             onClick={() => console.log(homeStore)}
           />
-          <div style={{ display: "flex" }}>
-            {homeStore.transactions.map((item, index) => {
-              return (
-                <div style={{ margin: 10 }} key={index}>
-                  <div>{item.from.name}</div>
-                  <div>{item.to.name}</div>
-                  <div>{item.amount}</div>
-                  <div>{item.date}</div>
-                </div>
-              );
-            })}
-          </div>
+          <AllTransactions
+            data={filterActive ? modifiedTransactions : homeStore.transactions}
+          />
 
           <div style={{ display: "flex" }}>
             {homeStore.users.map((item, index) => {

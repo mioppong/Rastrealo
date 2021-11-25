@@ -25,7 +25,9 @@ const AddUser = (props) => {
   };
 
   const handleCreateUser = () => {
-    const numberExists = homeStore.users.find((item) => item.number === number);
+    const numberExists = homeStore.users.find(
+      (item) => `${item.number}` === `${number}`
+    );
 
     if (numberExists) {
       console.log("PHONE NUMBER EXISTS");
