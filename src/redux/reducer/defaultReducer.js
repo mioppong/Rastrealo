@@ -11,6 +11,7 @@ export const initialState = {
   loading: false,
   users: [],
   transactions: [],
+  currencies: ['GHS', 'CAD', 'USD']
 };
 
 const defaultReducer = (state = initialState, action) => {

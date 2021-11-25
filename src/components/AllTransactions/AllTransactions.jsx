@@ -1,20 +1,26 @@
+import { Paper } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
 
+const EachTransaction = ({ transaction }) => (
+  <div style={{ margin: 10 }}>
+    <div>{transaction.from.name}</div>
+    <div>{transaction.to.name}</div>
+    <div>{transaction.amount}</div>
+    <div>{transaction.currency}</div>
+    <div>{transaction.receivingCurrency}</div>
+    <div>{transaction.receivingAmount}</div>
+    <div>{transaction.date}</div>
+  </div>
+);
+
 const AllTransactions = ({ data }) => {
   return (
-    <div style={{ display: "flex" }}>
+    <Paper>
       {data.map((item, index) => {
-        return (
-          <div style={{ margin: 10 }} key={index}>
-            <div>{item.from.name}</div>
-            <div>{item.to.name}</div>
-            <div>{item.amount}</div>
-            <div>{item.date}</div>
-          </div>
-        );
+        return <EachTransaction transaction={item} key={index} />;
       })}
-    </div>
+    </Paper>
   );
 };
 

@@ -20,7 +20,9 @@ const CreateTransaction = (props) => {
   const [recipient, setRecipient] = useState();
   const { homeStore } = props;
   const [amount, setAmount] = useState("");
-  const [, setCurrency] = useState();
+  const [receivingAmount, setreceivingAmount] = useState("");
+  const [currency, setCurrency] = useState();
+  const [receivingCurrency, setreceivingCurrency] = useState();
 
   const clearScreen = (props) => {
     // clear screen and clear modal
@@ -45,7 +47,10 @@ const CreateTransaction = (props) => {
       id: generateID(),
       from: sender,
       to: recipient,
+      currency,
       amount,
+      receivingCurrency,
+      receivingAmount,
       date: Date.now(),
     };
     props.createTransaction(newTransaction);
@@ -70,6 +75,7 @@ const CreateTransaction = (props) => {
               padding: "10px",
             }}
           >
+            <div>from </div>
             <Autocomplete
               onChange={(event, value) => setSender(value)}
               getOptionLabel={(item) => item.name}
@@ -82,28 +88,81 @@ const CreateTransaction = (props) => {
               }}
               renderInput={(params) => <TextField {...params} label="Sender" />}
             />
+            <div>to </div>
             <Autocomplete
               onChange={(event, value) => setRecipient(value)}
               getOptionLabel={(item) => item.name}
               options={homeStore.users}
-              filterOptions={(array, typed) => {
-                var filtered = array.filter(function (value) {
+              filterOptions={(arrayOfUsers, typed) => {
+                var filtered = arrayOfUsers.filter(function (value) {
                   return contains(value, typed.inputValue);
                 });
                 return filtered;
               }}
-              renderInput={(params) => <TextField {...params} label="Sender" />}
+              renderInput={(params) => (
+                <TextField {...params} label="Recipient" />
+              )}
             />
 
+            <div>currency </div>
+            <Autocomplete
+              onChange={(event, value) => setCurrency(value)}
+              getOptionLabel={(item) => item}
+              options={homeStore.currencies}
+              filterOptions={(array, typed) => {
+                var filtered = array.filter(function (value) {
+                  return value
+                    .toLowerCase()
+                    .includes(typed.inputValue.toLowerCase());
+                });
+                return filtered;
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="Currency" />
+              )}
+            />
+
+            <div>Sending amount </div>
             <TextField
+              label="Sending amount"
               value={amount}
               type="number"
               style={{ marginTop: "10px" }}
               onChange={(value) => setAmount(value.target.value)}
             />
 
+            <div>Receiving Currency </div>
+            <Autocomplete
+              onChange={(event, value) => setreceivingCurrency(value)}
+              getOptionLabel={(item) => item}
+              options={homeStore.currencies}
+              filterOptions={(array, typed) => {
+                var filtered = array.filter(function (value) {
+                  return value
+                    .toLowerCase()
+                    .includes(typed.inputValue.toLowerCase());
+                });
+                return filtered;
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="Receiving Currency" />
+              )}
+            />
+
+            <div>Receiving amount</div>
+            <TextField
+              label="Receiving amount"
+              value={receivingAmount}
+              type="number"
+              style={{ marginTop: "10px" }}
+              onChange={(value) => setreceivingAmount(value.target.value)}
+            />
+
             <Button children="done" onClick={handleDone} />
-            <Button children="Close" onClick={clearScreen} />
+            <Button
+              children="Close"
+              onClick={() => console.log(homeStore.currencies[0])}
+            />
           </Paper>
         </div>
       </Modal>

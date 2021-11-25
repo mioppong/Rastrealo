@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, Paper, TextField } from "@mui/material";
+import { Button, Modal, Paper, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createUser } from "../../redux/actions";
@@ -30,8 +30,7 @@ const AddUser = (props) => {
     );
 
     if (numberExists) {
-      console.log("PHONE NUMBER EXISTS");
-      alert("HELLOO");
+      alert("PHONE NUMER ALREADY EXISTS");
     } else {
       props.createUser({ name, number, otherInfo });
       clearScreen();
