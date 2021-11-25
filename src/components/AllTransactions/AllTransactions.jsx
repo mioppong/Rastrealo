@@ -1,4 +1,3 @@
-import { Paper } from "@mui/material";
 import React from "react";
 import LoadingOverlay from "react-loading-overlay";
 import { connect } from "react-redux";
@@ -23,11 +22,9 @@ const AllTransactions = ({ data, homeStore }) => {
       text="Loading your content..."
       styles={{ display: "flex" }}
     >
-      <Paper>
-        {data.map((item, index) => {
-          return <EachTransaction transaction={item} key={index} />;
-        })}
-      </Paper>
+      {data.map((item, index) => {
+        return <EachTransaction transaction={item} key={index} />;
+      })}
     </LoadingOverlay>
   );
 };
