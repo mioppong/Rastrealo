@@ -1,5 +1,6 @@
 import { Paper } from "@mui/material";
 import React from "react";
+import LoadingOverlay from "react-loading-overlay";
 import { connect } from "react-redux";
 
 const EachTransaction = ({ transaction }) => (
@@ -14,18 +15,26 @@ const EachTransaction = ({ transaction }) => (
   </div>
 );
 
-const AllTransactions = ({ data }) => {
+const AllTransactions = ({ data, homeStore }) => {
   return (
-    <Paper>
-      {data.map((item, index) => {
-        return <EachTransaction transaction={item} key={index} />;
-      })}
-    </Paper>
+    <LoadingOverlay
+      active={homeStore.loading}
+      spinner
+      text="Loading your content..."
+      styles={{ display: "flex" }}
+    >
+      <Paper>
+        {data.map((item, index) => {
+          return <EachTransaction transaction={item} key={index} />;
+        })}
+      </Paper>
+    </LoadingOverlay>
   );
 };
 
-const mapStateToProps = (state) => ({});
-
+const mapStateToProps = (state) => ({
+  homeStore: state.homeStore,
+});
 const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllTransactions);

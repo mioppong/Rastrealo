@@ -12,7 +12,7 @@ export const contains = ({ name, number, otherInfo }, query) => {
   return false;
 };
 export const generateID = () => {
-  return uuidv4();;
+  return uuidv4();
 };
 
 export const formattedMoney = (money) => {
