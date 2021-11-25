@@ -1,6 +1,7 @@
 .container {
   flex-direction: row;
   display: flex;
+  padding: 1%;
 }
 
 .sideBarContainer {

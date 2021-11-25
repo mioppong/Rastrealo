@@ -1,12 +1,12 @@
-import { Button, Paper } from "@mui/material";
+import { Button, List, Paper, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import AddUser from "../../components/AddUser/AddUser";
 import CreateTransaction from "../../components/CreateTransaction/CreateTransaction";
 import { createTransaction, login, logout } from "../../redux/actions";
 import "./DashboardStyle.css";
-import { CSVLink } from "react-csv";
 import AllTransactions from "../../components/AllTransactions/AllTransactions";
+import { Box } from "@mui/system";
 
 const csvData = [
   ["from", "to", "CAN", "USD", "GNC"],
@@ -24,42 +24,55 @@ const Dashboard = (props) => {
   const [modifiedTransactions, setModifiedTransactions] = useState(
     homeStore.transactions
   );
-
+  const rightSide = {
+    width: "100%",
+    height: "100vh",
+    maxHeight: "100vh",
+    marginLeft: "25px",
+    padding: "1%",
+    overflow: "hidden",
+  };
+  const containerStyle = {
+    display: "flex",
+    padding: "1%",
+    overflow: "hidden",
+  };
   return (
-    <div className="container">
-      <Paper elevation={10} className="sideBarContainer"></Paper>
-
+    <div style={containerStyle}>
       <Paper
         elevation={10}
-        style={{
-          width: "100%",
-          height: "100vh",
-          marginLeft: "25px",
-        }}
-      >
-        <CSVLink filename="mike.csv" data={csvData}>
-          Export to CSV
-        </CSVLink>
+        className="sideBarContainer"
+        style={{ padding: "1%" }}
+      />
 
+      <Paper elevation={10} style={rightSide}>
         <AddUser />
         <CreateTransaction />
-        <Button children="Log Out" onClick={logout} />
         <Button
           children="Check redux"
           onClick={() => console.log(homeStore.transactions)}
         />
 
-        <AllTransactions data={homeStore.transactions} />
-
         <div style={{ display: "flex" }}>
-          {homeStore.users.map((item, index) => {
-            return (
-              <div style={{ margin: 10 }} key={index}>
-                <div>{item.name}</div>
-                <div>{item.number}</div>
-              </div>
-            );
-          })}
+          <div>
+            <Typography> All Transactions</Typography>
+            <Paper style={{ maxHeight: "90vh", width: 500, overflow: "auto" }}>
+              <List>
+                <AllTransactions data={homeStore.transactions} />
+              </List>
+            </Paper>
+          </div>
+
+          <div style={{ display: "flex" }}>
+            {homeStore.users.map((item, index) => {
+              return (
+                <div style={{ margin: 10 }} key={index}>
+                  <div>{item.name}</div>
+                  <div>{item.number}</div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </Paper>
     </div>
@@ -80,3 +93,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+
+{
+  /* <CSVLink filename="mike.csv" data={csvData}>
+Export to CSV
+</CSVLink> */
+}
