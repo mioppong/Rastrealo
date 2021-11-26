@@ -17,8 +17,9 @@ export const generateID = () => {
 
 export const formattedMoney = (money) => {
   if (money) {
-    const formattedMoney = money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    const twoDecimalPlaces = (Math.round(money * 100) / 100).toFixed(2)
 
+    const formattedMoney = twoDecimalPlaces.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return `$ ${formattedMoney}`;
   }
   return '';

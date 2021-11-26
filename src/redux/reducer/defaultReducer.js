@@ -34,14 +34,18 @@ const defaultReducer = (state = initialState, action) => {
       return newState;
 
     case types.CREATE_USER_START:
+      newState.loading = true
       return newState;
 
     case types.CREATE_USER_SUCCESS:
       const { newUser } = action.payload;
       newState.users.push(newUser);
+      newState.loading = false
+
       return newState;
 
     case types.CREATE_USER_FAILED:
+
       return newState;
 
     case types.CREATE_TRANSACTION_START:

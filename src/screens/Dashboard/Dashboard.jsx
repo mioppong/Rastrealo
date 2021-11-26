@@ -7,6 +7,7 @@ import { createTransaction, login } from "../../redux/actions";
 import "./DashboardStyle.css";
 import AllTransactions from "../../components/AllTransactions/AllTransactions";
 import { myColors } from "../../styles/myColors";
+import AllUsers from "../../components/AllUsers/AllUsers";
 
 const csvData = [
   ["from", "to", "CAN", "USD", "GNC"],
@@ -52,12 +53,8 @@ const Dashboard = (props) => {
       />
 
       <Paper elevation={10} style={rightSide}>
-        <AddUser />
         <CreateTransaction />
-        {/* <Button
-          children="Check redux"
-          onClick={() => console.log(homeStore.transactions)}
-        /> */}
+        <AddUser />
 
         <div style={{ display: "flex" }}>
           <div style={{ margin: "1%" }}>
@@ -100,15 +97,32 @@ const Dashboard = (props) => {
             </Paper>
           </div>
 
-          <div style={{ display: "flex" }}>
-            {homeStore.users.map((item, index) => {
-              return (
-                <div style={{ margin: 10 }} key={index}>
-                  <div>{item.name}</div>
-                  <div>{item.number}</div>
-                </div>
-              );
-            })}
+          <div style={{ margin: "1%" }}>
+            <div style={{ display: "flex" }}>
+              <Button
+                children="Export"
+                onClick={() => console.log(homeStore.transactions)}
+                variant="contained"
+                size="large"
+                style={{
+                  backgroundColor: myColors.fifth,
+                  marginBottom: "10px",
+                }}
+              />
+            </div>
+            <Paper
+              style={{
+                maxHeight: "80vh",
+                width: 350,
+                overflow: "auto",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <List>
+                <AllUsers data={homeStore.users} />
+              </List>
+            </Paper>
           </div>
         </div>
       </Paper>
