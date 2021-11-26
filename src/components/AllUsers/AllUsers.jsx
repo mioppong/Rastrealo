@@ -7,7 +7,6 @@ import { myColors } from "../../styles/myColors";
 const EachUser = ({ user }) => {
   return (
     <Card
-      elevation={29}
       style={{
         margin: 10,
         display: "flex",

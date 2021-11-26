@@ -1,7 +1,6 @@
 import {
   Autocomplete,
   Button,
-  colors,
   Modal,
   Paper,
   TextField,

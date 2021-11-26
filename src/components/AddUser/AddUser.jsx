@@ -59,7 +59,6 @@ const AddUser = (props) => {
           margin: "10px",
           backgroundColor: myColors.fifth,
         }}
-        onClick={() => setModalVisible(true)}
       />
 
       <Modal open={modalVisible}>
@@ -117,7 +116,6 @@ const AddUser = (props) => {
               <Button
                 children="Close"
                 variant="contained"
-                children="Close"
                 onClick={clearScreen}
                 style={{
                   margin: "10px",

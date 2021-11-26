@@ -1,5 +1,5 @@
-import { Button, List, Paper, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Button, List, Paper } from "@mui/material";
+import React from "react";
 import { connect } from "react-redux";
 import AddUser from "../../components/AddUser/AddUser";
 import CreateTransaction from "../../components/CreateTransaction/CreateTransaction";
@@ -9,22 +9,22 @@ import AllTransactions from "../../components/AllTransactions/AllTransactions";
 import { myColors } from "../../styles/myColors";
 import AllUsers from "../../components/AllUsers/AllUsers";
 
-const csvData = [
-  ["from", "to", "CAN", "USD", "GNC"],
-  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-  ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-];
+// const csvData = [
+//   ["from", "to", "CAN", "USD", "GNC"],
+//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
+// ];
 
 const Dashboard = (props) => {
   const { homeStore } = props;
-  const [modifiedTransactions, setModifiedTransactions] = useState(
-    homeStore.transactions
-  );
+  // const [modifiedTransactions, setModifiedTransactions] = useState(
+  //   homeStore.transactions
+  // );
   const rightSide = {
     width: "100%",
     height: "100vh",
@@ -39,20 +39,11 @@ const Dashboard = (props) => {
     overflow: "hidden",
   };
 
-  const sectionTitleStyles = {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: myColors.first,
-  };
   return (
     <div style={containerStyle}>
-      <Paper
-        elevation={10}
-        className="sideBarContainer"
-        style={{ padding: "1%" }}
-      />
+      <Paper className="sideBarContainer" style={{ padding: "1%" }} />
 
-      <Paper elevation={10} style={rightSide}>
+      <Paper style={rightSide}>
         <CreateTransaction />
         <AddUser />
 
@@ -145,8 +136,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
 
-{
-  /* <CSVLink filename="mike.csv" data={csvData}>
+/* <CSVLink filename="mike.csv" data={csvData}>
 Export to CSV
 </CSVLink> */
-}
