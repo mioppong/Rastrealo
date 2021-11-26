@@ -63,7 +63,6 @@ const Dashboard = (props) => {
           <div style={{ margin: "1%" }}>
             <div style={{ display: "flex" }}>
               <Typography style={sectionTitleStyles}>
-                {" "}
                 All Transactions
               </Typography>
               <Button
@@ -76,22 +75,6 @@ const Dashboard = (props) => {
               />
             </div>
 
-            <Paper
-              style={{
-                maxHeight: "90vh",
-                width: 350,
-                overflow: "auto",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <List>
-                <AllTransactions data={homeStore.transactions.reverse()} />
-              </List>
-            </Paper>
-          </div>
-          <div style={{ margin: "1%" }}>
-            <Typography style={sectionTitleStyles}> All Users</Typography>
             <Paper
               style={{
                 maxHeight: "90vh",

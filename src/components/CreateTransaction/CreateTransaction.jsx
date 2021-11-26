@@ -1,25 +1,18 @@
 import {
   Autocomplete,
   Button,
+  colors,
   Modal,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
+import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { contains, generateID } from "../../api";
 import { createTransaction } from "../../redux/actions";
-
-// const SearchItem = ({ users }) => {
-//   const { name, number, otherInfo } = users;
-//   return (
-//     <>
-//       <div>{name}</div>
-//       <div>{number}</div>
-//     </>
-//   );
-// };
+import { myColors } from "../../styles/myColors";
 
 const CreateTransaction = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -106,18 +99,18 @@ const CreateTransaction = (props) => {
         <div style={modalContainerStyle}>
           <Paper
             style={{
-              height: "80vh",
-              width: "70vh",
-              marginTop: "2vh",
+              height: "550px",
+              width: "500px",
+              marginTop: "10vh",
               display: "flex",
               flexDirection: "column",
               padding: "10px",
+              overflow: "auto",
             }}
           >
-            <div>from </div>
             <Autocomplete
               onChange={(event, value) => setSender(value)}
-              getOptionLabel={(item) => item.name}
+              getOptionLabel={(item) => `${item.name} (${item.number}) `}
               options={homeStore.users}
               filterOptions={(arrayOfUsers, typed) => {
                 var filtered = arrayOfUsers.filter(function (value) {
@@ -126,11 +119,21 @@ const CreateTransaction = (props) => {
                 return filtered;
               }}
               renderInput={(params) => <TextField {...params} label="Sender" />}
+              renderOption={(props, option) => (
+                <Box
+                  component="li"
+                  sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                  {...props}
+                >
+                  {option.name} ({option.number})
+                </Box>
+              )}
+              style={{ margin: 10 }}
             />
-            <div>to </div>
+
             <Autocomplete
               onChange={(event, value) => setRecipient(value)}
-              getOptionLabel={(item) => item.name}
+              getOptionLabel={(item) => `${item.name} (${item.number}) `}
               options={homeStore.users}
               filterOptions={(arrayOfUsers, typed) => {
                 var filtered = arrayOfUsers.filter(function (value) {
@@ -141,9 +144,9 @@ const CreateTransaction = (props) => {
               renderInput={(params) => (
                 <TextField {...params} label="Recipient" />
               )}
+              style={{ margin: 10 }}
             />
 
-            <div>currency </div>
             <Autocomplete
               onChange={(event, value) => setCurrency(value)}
               getOptionLabel={(item) => item}
@@ -159,18 +162,17 @@ const CreateTransaction = (props) => {
               renderInput={(params) => (
                 <TextField {...params} label="Currency" />
               )}
+              style={{ margin: 10 }}
             />
 
-            <div>Sending amount </div>
             <TextField
               label="Sending amount"
               value={amount}
               type="number"
-              style={{ marginTop: "10px" }}
+              style={{ margin: 10 }}
               onChange={(value) => setAmount(value.target.value)}
             />
 
-            <div>Receiving Currency </div>
             <Autocomplete
               onChange={(event, value) => setreceivingCurrency(value)}
               getOptionLabel={(item) => item}
@@ -186,25 +188,47 @@ const CreateTransaction = (props) => {
               renderInput={(params) => (
                 <TextField {...params} label="Receiving Currency" />
               )}
+              style={{ margin: 10 }}
             />
 
-            <div>Receiving amount</div>
             <TextField
               label="Receiving amount"
               value={receivingAmount}
               type="number"
-              style={{ marginTop: "10px" }}
+              style={{ margin: "10px" }}
               onChange={(value) => setreceivingAmount(value.target.value)}
             />
 
             {errorMessage && (
               <Typography
-                style={{ color: "red", fontWeight: "bold" }}
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  alignSelf: "center",
+                  fontSize: 20,
+                }}
                 children={errorMessage}
               />
             )}
-            <Button children="done" onClick={handleDone} />
-            <Button children="Close" onClick={() => clearScreen()} />
+            <div style={{ marginTop: "auto", alignSelf: "center" }}>
+              <Button
+                size="large"
+                variant="contained"
+                children="done"
+                onClick={handleDone}
+                style={{ margin: "10px", backgroundColor: myColors.first }}
+              />
+              <Button
+                children="Close"
+                variant="contained"
+                onClick={() => clearScreen()}
+                size="small"
+                style={{
+                  margin: "10px",
+                  backgroundColor: "red",
+                }}
+              />
+            </div>
           </Paper>
         </div>
       </Modal>
