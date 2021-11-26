@@ -43,7 +43,9 @@ const EachTransaction = ({ transaction }) => (
         padding: "1%",
       }}
     >
-      <Typography>{transaction.to.name}</Typography>
+      <Typography>
+        {transaction.to.name} {`(${transaction.to.number})`}
+      </Typography>
       <Typography style={{ fontWeight: "bold" }}>
         {formattedMoney(transaction.receivingAmount)}{" "}
         {transaction.receivingCurrency}
