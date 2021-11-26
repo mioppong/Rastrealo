@@ -1,16 +1,24 @@
+import { DoubleArrowRounded } from "@mui/icons-material";
 import React from "react";
 import LoadingOverlay from "react-loading-overlay";
 import { connect } from "react-redux";
 
 const EachTransaction = ({ transaction }) => (
-  <div style={{ margin: 10 }}>
-    <div>{transaction.from.name}</div>
-    <div>{transaction.to.name}</div>
-    <div>{transaction.amount}</div>
-    <div>{transaction.currency}</div>
-    <div>{transaction.receivingCurrency}</div>
-    <div>{transaction.receivingAmount}</div>
+  <div style={{ margin: 10, display: "flex" }}>
     <div>{transaction.date}</div>
+
+    <div>
+      <div>{transaction.from.name}</div>
+      <div>{transaction.currency}</div>
+      <div>{transaction.amount}</div>
+    </div>
+
+    <div>
+      <DoubleArrowRounded />
+      <div>{transaction.to.name}</div>
+      <div>{transaction.receivingCurrency}</div>
+      <div>{transaction.receivingAmount}</div>
+    </div>
   </div>
 );
 

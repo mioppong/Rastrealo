@@ -56,7 +56,7 @@ const Dashboard = (props) => {
         <div style={{ display: "flex" }}>
           <div>
             <Typography> All Transactions</Typography>
-            <Paper style={{ maxHeight: "90vh", width: 500, overflow: "auto" }}>
+            <Paper style={{ maxHeight: "50vh", width: 500, overflow: "auto" }}>
               <List>
                 <AllTransactions data={homeStore.transactions} />
               </List>

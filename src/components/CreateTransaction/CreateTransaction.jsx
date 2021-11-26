@@ -1,4 +1,11 @@
-import { Autocomplete, Button, Modal, Paper, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Button,
+  Modal,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { contains, generateID } from "../../api";
@@ -18,24 +25,52 @@ const CreateTransaction = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [sender, setSender] = useState();
   const [recipient, setRecipient] = useState();
-  const { homeStore } = props;
-  const [amount, setAmount] = useState("");
-  const [receivingAmount, setreceivingAmount] = useState("");
+  const [amount, setAmount] = useState();
   const [currency, setCurrency] = useState();
+  const [errorMessage, setErrorMessage] = useState();
+  const [receivingAmount, setreceivingAmount] = useState();
   const [receivingCurrency, setreceivingCurrency] = useState();
 
-  const clearScreen = (props) => {
-    // clear screen and clear modal
-    setAmount();
-    setSender();
-    setCurrency();
-    setRecipient();
-    closeModal();
-  };
+  console.log(!sender);
+  const { homeStore } = props;
 
-  const closeModal = () => {
+  const clearScreen = () => {
+    // clear screen and clear modal
+    setSender();
+    setRecipient();
+    setCurrency();
+    setAmount();
+    setreceivingCurrency();
+    setreceivingAmount();
+    setErrorMessage();
     setModalVisible(false);
   };
+
+  const checkDataEmpty = () => {
+    if (!sender) {
+      setErrorMessage("Sender can not be empty");
+      return true;
+    } else if (!recipient) {
+      setErrorMessage("recipient can not be empty");
+      return true;
+    } else if (!amount) {
+      setErrorMessage("amount can not be empty");
+      return true;
+    } else if (!recipient) {
+      setErrorMessage("recipient can not be empty");
+      return true;
+    } else if (!receivingAmount) {
+      setErrorMessage("Receiving amount can not be empty");
+      return true;
+    } else if (!currency) {
+      setErrorMessage("currency can not be empty");
+      return true;
+    } else if (!receivingCurrency) {
+      setErrorMessage("Receiving currency can not be empty");
+      return true;
+    }
+  };
+
   const modalContainerStyle = {
     justifyContent: "center",
     display: "flex",
@@ -43,18 +78,22 @@ const CreateTransaction = (props) => {
   };
 
   const handleDone = () => {
-    const newTransaction = {
-      id: generateID(),
-      from: sender,
-      to: recipient,
-      currency,
-      amount,
-      receivingCurrency,
-      receivingAmount,
-      date: Date.now(),
-    };
-    props.createTransaction(newTransaction);
-    setModalVisible(false);
+    if (checkDataEmpty() === true) {
+      // some data is empty
+    } else {
+      const newTransaction = {
+        id: generateID(),
+        from: sender,
+        to: recipient,
+        currency,
+        amount,
+        receivingCurrency,
+        receivingAmount,
+        date: Date.now(),
+      };
+      props.createTransaction(newTransaction);
+      clearScreen();
+    }
   };
 
   return (
@@ -67,9 +106,9 @@ const CreateTransaction = (props) => {
         <div style={modalContainerStyle}>
           <Paper
             style={{
-              height: "50vh",
-              width: "50vh",
-              marginTop: "15vh",
+              height: "80vh",
+              width: "70vh",
+              marginTop: "2vh",
               display: "flex",
               flexDirection: "column",
               padding: "10px",
@@ -158,11 +197,14 @@ const CreateTransaction = (props) => {
               onChange={(value) => setreceivingAmount(value.target.value)}
             />
 
+            {errorMessage && (
+              <Typography
+                style={{ color: "red", fontWeight: "bold" }}
+                children={errorMessage}
+              />
+            )}
             <Button children="done" onClick={handleDone} />
-            <Button
-              children="Close"
-              onClick={() => console.log(homeStore.currencies[0])}
-            />
+            <Button children="Close" onClick={() => clearScreen()} />
           </Paper>
         </div>
       </Modal>
