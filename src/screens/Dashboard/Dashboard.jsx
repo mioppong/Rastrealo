@@ -1,6 +1,7 @@
 import { Button, List, Paper } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
+
 import AddUser from "../../components/AddUser/AddUser";
 import CreateTransaction from "../../components/CreateTransaction/CreateTransaction";
 import { createTransaction, login } from "../../redux/actions";
@@ -32,6 +33,7 @@ const Dashboard = (props) => {
     marginLeft: "25px",
     padding: "1%",
     overflow: "hidden",
+    backgroundColor: "#f3e7fe",
   };
   const containerStyle = {
     display: "flex",
@@ -41,12 +43,15 @@ const Dashboard = (props) => {
 
   return (
     <div style={containerStyle}>
-      <Paper className="sideBarContainer" style={{ padding: "1%" }} />
+      <Paper
+        className="sideBarContainer"
+        style={{ padding: "1%", backgroundColor: "#f3e7fe" }}
+      >
+        <AddUser />
+        <CreateTransaction />
+      </Paper>
 
       <Paper style={rightSide}>
-        <CreateTransaction />
-        <AddUser />
-
         <div style={{ display: "flex" }}>
           <div style={{ margin: "1%" }}>
             <div style={{ display: "flex" }}>
