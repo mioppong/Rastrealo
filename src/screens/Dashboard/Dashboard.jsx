@@ -109,7 +109,7 @@ const Dashboard = (props) => {
             <Paper
               style={{
                 maxHeight: "80vh",
-                width: 350,
+                width: 300,
                 overflow: "auto",
                 display: "flex",
                 justifyContent: "center",

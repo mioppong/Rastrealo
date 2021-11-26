@@ -11,7 +11,7 @@ const EachUser = ({ user }) => {
         margin: 10,
         display: "flex",
         flexDirection: "column",
-        backgroundColor: myColors.tenth,
+        backgroundColor: "#f3e7fe",
         padding: "1%",
         width: 250,
         alignItems: "center",

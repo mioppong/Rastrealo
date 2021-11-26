@@ -12,7 +12,7 @@ const EachTransaction = ({ transaction }) => (
       margin: 10,
       display: "flex",
       flexDirection: "column",
-      backgroundColor: myColors.fifth,
+      backgroundColor: "#f3e7fe",
       padding: "1%",
       width: 300,
       alignItems: "center",
