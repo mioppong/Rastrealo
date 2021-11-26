@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import AddUser from "../../components/AddUser/AddUser";
 import CreateTransaction from "../../components/CreateTransaction/CreateTransaction";
-import { createTransaction, login, logout } from "../../redux/actions";
+import { createTransaction, login } from "../../redux/actions";
 import "./DashboardStyle.css";
 import AllTransactions from "../../components/AllTransactions/AllTransactions";
-import { Box } from "@mui/system";
+import { myColors } from "../../styles/myColors";
 
 const csvData = [
   ["from", "to", "CAN", "USD", "GNC"],
@@ -37,6 +37,12 @@ const Dashboard = (props) => {
     padding: "1%",
     overflow: "hidden",
   };
+
+  const sectionTitleStyles = {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: myColors.first,
+  };
   return (
     <div style={containerStyle}>
       <Paper
@@ -54,11 +60,49 @@ const Dashboard = (props) => {
         />
 
         <div style={{ display: "flex" }}>
-          <div>
-            <Typography> All Transactions</Typography>
-            <Paper style={{ maxHeight: "50vh", width: 500, overflow: "auto" }}>
+          <div style={{ margin: "1%" }}>
+            <div style={{ display: "flex" }}>
+              <Typography style={sectionTitleStyles}>
+                {" "}
+                All Transactions
+              </Typography>
+              <Button
+                children="Sort"
+                onClick={() => console.log(homeStore.transactions)}
+              />
+              <Button
+                children="Export"
+                onClick={() => console.log(homeStore.transactions)}
+              />
+            </div>
+
+            <Paper
+              style={{
+                maxHeight: "90vh",
+                width: 350,
+                overflow: "auto",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <List>
-                <AllTransactions data={homeStore.transactions} />
+                <AllTransactions data={homeStore.transactions.reverse()} />
+              </List>
+            </Paper>
+          </div>
+          <div style={{ margin: "1%" }}>
+            <Typography style={sectionTitleStyles}> All Users</Typography>
+            <Paper
+              style={{
+                maxHeight: "90vh",
+                width: 350,
+                overflow: "auto",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <List>
+                <AllTransactions data={homeStore.transactions.reverse()} />
               </List>
             </Paper>
           </div>
