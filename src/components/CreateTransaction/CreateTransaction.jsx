@@ -1,41 +1,69 @@
-import { Autocomplete, Button, Modal, Paper, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Button,
+  colors,
+  Modal,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { contains, generateID } from "../../api";
 import { createTransaction } from "../../redux/actions";
-
-// const SearchItem = ({ users }) => {
-//   const { name, number, otherInfo } = users;
-//   return (
-//     <>
-//       <div>{name}</div>
-//       <div>{number}</div>
-//     </>
-//   );
-// };
+import { myColors } from "../../styles/myColors";
 
 const CreateTransaction = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [sender, setSender] = useState();
   const [recipient, setRecipient] = useState();
-  const { homeStore } = props;
-  const [amount, setAmount] = useState("");
-  const [receivingAmount, setreceivingAmount] = useState("");
+  const [amount, setAmount] = useState();
   const [currency, setCurrency] = useState();
+  const [errorMessage, setErrorMessage] = useState();
+  const [receivingAmount, setreceivingAmount] = useState();
   const [receivingCurrency, setreceivingCurrency] = useState();
 
-  const clearScreen = (props) => {
-    // clear screen and clear modal
-    setAmount();
-    setSender();
-    setCurrency();
-    setRecipient();
-    closeModal();
-  };
+  console.log(!sender);
+  const { homeStore } = props;
 
-  const closeModal = () => {
+  const clearScreen = () => {
+    // clear screen and clear modal
+    setSender();
+    setRecipient();
+    setCurrency();
+    setAmount();
+    setreceivingCurrency();
+    setreceivingAmount();
+    setErrorMessage();
     setModalVisible(false);
   };
+
+  const checkDataEmpty = () => {
+    if (!sender) {
+      setErrorMessage("Sender can not be empty");
+      return true;
+    } else if (!recipient) {
+      setErrorMessage("recipient can not be empty");
+      return true;
+    } else if (!amount) {
+      setErrorMessage("amount can not be empty");
+      return true;
+    } else if (!recipient) {
+      setErrorMessage("recipient can not be empty");
+      return true;
+    } else if (!receivingAmount) {
+      setErrorMessage("Receiving amount can not be empty");
+      return true;
+    } else if (!currency) {
+      setErrorMessage("currency can not be empty");
+      return true;
+    } else if (!receivingCurrency) {
+      setErrorMessage("Receiving currency can not be empty");
+      return true;
+    }
+  };
+
   const modalContainerStyle = {
     justifyContent: "center",
     display: "flex",
@@ -43,18 +71,22 @@ const CreateTransaction = (props) => {
   };
 
   const handleDone = () => {
-    const newTransaction = {
-      id: generateID(),
-      from: sender,
-      to: recipient,
-      currency,
-      amount,
-      receivingCurrency,
-      receivingAmount,
-      date: Date.now(),
-    };
-    props.createTransaction(newTransaction);
-    setModalVisible(false);
+    if (checkDataEmpty() === true) {
+      // some data is empty
+    } else {
+      const newTransaction = {
+        id: generateID(),
+        from: sender,
+        to: recipient,
+        currency,
+        amount,
+        receivingCurrency,
+        receivingAmount,
+        date: Date.now(),
+      };
+      props.createTransaction(newTransaction);
+      clearScreen();
+    }
   };
 
   return (
@@ -62,23 +94,29 @@ const CreateTransaction = (props) => {
       <Button
         children="Create Transaction"
         onClick={() => setModalVisible(true)}
+        variant="contained"
+        size="large"
+        style={{
+          margin: "10px",
+          backgroundColor: myColors.first,
+        }}
       />
       <Modal open={modalVisible}>
         <div style={modalContainerStyle}>
           <Paper
             style={{
-              height: "50vh",
-              width: "50vh",
-              marginTop: "15vh",
+              height: "550px",
+              width: "500px",
+              marginTop: "10vh",
               display: "flex",
               flexDirection: "column",
               padding: "10px",
+              overflow: "auto",
             }}
           >
-            <div>from </div>
             <Autocomplete
               onChange={(event, value) => setSender(value)}
-              getOptionLabel={(item) => item.name}
+              getOptionLabel={(item) => `${item.name} (${item.number}) `}
               options={homeStore.users}
               filterOptions={(arrayOfUsers, typed) => {
                 var filtered = arrayOfUsers.filter(function (value) {
@@ -87,11 +125,21 @@ const CreateTransaction = (props) => {
                 return filtered;
               }}
               renderInput={(params) => <TextField {...params} label="Sender" />}
+              renderOption={(props, option) => (
+                <Box
+                  component="li"
+                  sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                  {...props}
+                >
+                  {option.name} ({option.number})
+                </Box>
+              )}
+              style={{ margin: 10 }}
             />
-            <div>to </div>
+
             <Autocomplete
               onChange={(event, value) => setRecipient(value)}
-              getOptionLabel={(item) => item.name}
+              getOptionLabel={(item) => `${item.name} (${item.number}) `}
               options={homeStore.users}
               filterOptions={(arrayOfUsers, typed) => {
                 var filtered = arrayOfUsers.filter(function (value) {
@@ -102,9 +150,9 @@ const CreateTransaction = (props) => {
               renderInput={(params) => (
                 <TextField {...params} label="Recipient" />
               )}
+              style={{ margin: 10 }}
             />
 
-            <div>currency </div>
             <Autocomplete
               onChange={(event, value) => setCurrency(value)}
               getOptionLabel={(item) => item}
@@ -120,18 +168,17 @@ const CreateTransaction = (props) => {
               renderInput={(params) => (
                 <TextField {...params} label="Currency" />
               )}
+              style={{ margin: 10 }}
             />
 
-            <div>Sending amount </div>
             <TextField
               label="Sending amount"
               value={amount}
               type="number"
-              style={{ marginTop: "10px" }}
+              style={{ margin: 10 }}
               onChange={(value) => setAmount(value.target.value)}
             />
 
-            <div>Receiving Currency </div>
             <Autocomplete
               onChange={(event, value) => setreceivingCurrency(value)}
               getOptionLabel={(item) => item}
@@ -147,22 +194,47 @@ const CreateTransaction = (props) => {
               renderInput={(params) => (
                 <TextField {...params} label="Receiving Currency" />
               )}
+              style={{ margin: 10 }}
             />
 
-            <div>Receiving amount</div>
             <TextField
               label="Receiving amount"
               value={receivingAmount}
               type="number"
-              style={{ marginTop: "10px" }}
+              style={{ margin: "10px" }}
               onChange={(value) => setreceivingAmount(value.target.value)}
             />
 
-            <Button children="done" onClick={handleDone} />
-            <Button
-              children="Close"
-              onClick={() => console.log(homeStore.currencies[0])}
-            />
+            {errorMessage && (
+              <Typography
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  alignSelf: "center",
+                  fontSize: 20,
+                }}
+                children={errorMessage}
+              />
+            )}
+            <div style={{ marginTop: "auto", alignSelf: "center" }}>
+              <Button
+                size="large"
+                variant="contained"
+                children="done"
+                onClick={handleDone}
+                style={{ margin: "10px", backgroundColor: myColors.first }}
+              />
+              <Button
+                children="Close"
+                variant="contained"
+                onClick={() => clearScreen()}
+                size="small"
+                style={{
+                  margin: "10px",
+                  backgroundColor: "red",
+                }}
+              />
+            </div>
           </Paper>
         </div>
       </Modal>

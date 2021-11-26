@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import AddUser from "../../components/AddUser/AddUser";
 import CreateTransaction from "../../components/CreateTransaction/CreateTransaction";
-import { createTransaction, login, logout } from "../../redux/actions";
+import { createTransaction, login } from "../../redux/actions";
 import "./DashboardStyle.css";
 import AllTransactions from "../../components/AllTransactions/AllTransactions";
-import { Box } from "@mui/system";
+import { myColors } from "../../styles/myColors";
 
 const csvData = [
   ["from", "to", "CAN", "USD", "GNC"],
@@ -37,6 +37,12 @@ const Dashboard = (props) => {
     padding: "1%",
     overflow: "hidden",
   };
+
+  const sectionTitleStyles = {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: myColors.first,
+  };
   return (
     <div style={containerStyle}>
       <Paper
@@ -48,17 +54,48 @@ const Dashboard = (props) => {
       <Paper elevation={10} style={rightSide}>
         <AddUser />
         <CreateTransaction />
-        <Button
+        {/* <Button
           children="Check redux"
           onClick={() => console.log(homeStore.transactions)}
-        />
+        /> */}
 
         <div style={{ display: "flex" }}>
-          <div>
-            <Typography> All Transactions</Typography>
-            <Paper style={{ maxHeight: "90vh", width: 500, overflow: "auto" }}>
+          <div style={{ margin: "1%" }}>
+            <div style={{ display: "flex" }}>
+              <Button
+                children="Sort"
+                onClick={() => console.log(homeStore.transactions)}
+                variant="contained"
+                size="large"
+                style={{
+                  backgroundColor: myColors.first,
+                  marginBottom: "10px",
+                }}
+              />
+              <Button
+                children="Export"
+                onClick={() => console.log(homeStore.transactions)}
+                variant="contained"
+                size="large"
+                style={{
+                  marginLeft: "10px",
+                  marginBottom: "10px",
+                  backgroundColor: myColors.fifth,
+                }}
+              />
+            </div>
+
+            <Paper
+              style={{
+                maxHeight: "80vh",
+                width: 350,
+                overflow: "auto",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
               <List>
-                <AllTransactions data={homeStore.transactions} />
+                <AllTransactions data={homeStore.transactions.reverse()} />
               </List>
             </Paper>
           </div>
