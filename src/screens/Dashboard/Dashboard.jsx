@@ -9,6 +9,7 @@ import "./DashboardStyle.css";
 import AllTransactions from "../../components/AllTransactions/AllTransactions";
 import { myColors } from "../../styles/myColors";
 import AllUsers from "../../components/AllUsers/AllUsers";
+import { Box } from "@mui/system";
 
 // const csvData = [
 //   ["from", "to", "CAN", "USD", "GNC"],
@@ -33,7 +34,7 @@ const Dashboard = (props) => {
     marginLeft: "25px",
     padding: "1%",
     overflow: "hidden",
-    backgroundColor: "#f3e7fe",
+    backgroundColor: "#f2eff5",
   };
   const containerStyle = {
     display: "flex",
@@ -43,15 +44,15 @@ const Dashboard = (props) => {
 
   return (
     <div style={containerStyle}>
-      <Paper
+      <Box
         className="sideBarContainer"
-        style={{ padding: "1%", backgroundColor: "#f3e7fe" }}
+        style={{ padding: "1%", backgroundColor: "#f2eff5" }}
       >
         <AddUser />
         <CreateTransaction />
-      </Paper>
+      </Box>
 
-      <Paper style={rightSide}>
+      <Box style={rightSide}>
         <div style={{ display: "flex" }}>
           <div style={{ margin: "1%" }}>
             <div style={{ display: "flex" }}>
@@ -121,7 +122,7 @@ const Dashboard = (props) => {
             </Paper>
           </div>
         </div>
-      </Paper>
+      </Box>
     </div>
   );
 };
