@@ -50,7 +50,17 @@ const AddUser = (props) => {
   };
   return (
     <>
-      <Button children="Create User" onClick={() => setModalVisible(true)} />
+      <Button
+        children="Create User"
+        onClick={() => setModalVisible(true)}
+        variant="contained"
+        size="large"
+        style={{
+          margin: "10px",
+          backgroundColor: myColors.fifth,
+        }}
+        onClick={() => setModalVisible(true)}
+      />
 
       <Modal open={modalVisible}>
         <div style={modalContainerStyle}>

@@ -12,7 +12,7 @@ const EachTransaction = ({ transaction }) => (
       margin: 10,
       display: "flex",
       flexDirection: "column",
-      backgroundColor: myColors.tenth,
+      backgroundColor: myColors.fifth,
       padding: "1%",
       width: 300,
       alignItems: "center",
@@ -37,7 +37,6 @@ const EachTransaction = ({ transaction }) => (
     <ArrowCircleDownRounded fontSize="large" />
     <div
       style={{
-        flex: 1,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

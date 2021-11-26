@@ -94,6 +94,12 @@ const CreateTransaction = (props) => {
       <Button
         children="Create Transaction"
         onClick={() => setModalVisible(true)}
+        variant="contained"
+        size="large"
+        style={{
+          margin: "10px",
+          backgroundColor: myColors.first,
+        }}
       />
       <Modal open={modalVisible}>
         <div style={modalContainerStyle}>

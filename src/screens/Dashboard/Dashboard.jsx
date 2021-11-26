@@ -54,30 +54,40 @@ const Dashboard = (props) => {
       <Paper elevation={10} style={rightSide}>
         <AddUser />
         <CreateTransaction />
-        <Button
+        {/* <Button
           children="Check redux"
           onClick={() => console.log(homeStore.transactions)}
-        />
+        /> */}
 
         <div style={{ display: "flex" }}>
           <div style={{ margin: "1%" }}>
             <div style={{ display: "flex" }}>
-              <Typography style={sectionTitleStyles}>
-                All Transactions
-              </Typography>
               <Button
                 children="Sort"
                 onClick={() => console.log(homeStore.transactions)}
+                variant="contained"
+                size="large"
+                style={{
+                  backgroundColor: myColors.first,
+                  marginBottom: "10px",
+                }}
               />
               <Button
                 children="Export"
                 onClick={() => console.log(homeStore.transactions)}
+                variant="contained"
+                size="large"
+                style={{
+                  marginLeft: "10px",
+                  marginBottom: "10px",
+                  backgroundColor: myColors.fifth,
+                }}
               />
             </div>
 
             <Paper
               style={{
-                maxHeight: "90vh",
+                maxHeight: "80vh",
                 width: 350,
                 overflow: "auto",
                 display: "flex",
