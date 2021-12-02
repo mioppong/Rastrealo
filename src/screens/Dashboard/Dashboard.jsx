@@ -1,7 +1,10 @@
 import { Button, List, Paper } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
+import { Box } from "@mui/system";
+import { CSVLink } from "react-csv";
 
+import { dateIntToString } from "../../api";
 import AddUser from "../../components/AddUser/AddUser";
 import CreateTransaction from "../../components/CreateTransaction/CreateTransaction";
 import { createTransaction, login } from "../../redux/actions";
@@ -9,7 +12,6 @@ import "./DashboardStyle.css";
 import AllTransactions from "../../components/AllTransactions/AllTransactions";
 import { myColors } from "../../styles/myColors";
 import AllUsers from "../../components/AllUsers/AllUsers";
-import { Box } from "@mui/system";
 
 // const csvData = [
 //   ["from", "to", "CAN", "USD", "GNC"],
@@ -68,7 +70,7 @@ const Dashboard = (props) => {
               />
               <Button
                 children="Export"
-                onClick={() => console.log(homeStore.transactions)}
+                onClick={() => console.log()}
                 variant="contained"
                 size="large"
                 style={{
@@ -76,7 +78,15 @@ const Dashboard = (props) => {
                   marginBottom: "10px",
                   backgroundColor: myColors.fifth,
                 }}
-              />
+              >
+                <CSVLink
+                  style={{ flex: 1 }}
+                  filename={`${dateIntToString()}.csv`}
+                  data={homeStore.exportingArray}
+                >
+                  Export to CSV
+                </CSVLink>
+              </Button>
             </div>
 
             <Paper
@@ -98,7 +108,7 @@ const Dashboard = (props) => {
             <div style={{ display: "flex" }}>
               <Button
                 children="Export"
-                onClick={() => console.log(homeStore.transactions)}
+                onClick={() => console.log()}
                 variant="contained"
                 size="large"
                 style={{
@@ -141,7 +151,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
-
-/* <CSVLink filename="mike.csv" data={csvData}>
-Export to CSV
-</CSVLink> */

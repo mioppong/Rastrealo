@@ -51,9 +51,9 @@ const EachTransaction = ({ transaction }) => (
         {transaction.receivingCurrency}
       </Typography>
     </div>
-    <div style={{ alignSelf: "flex-end" }}>
+    <Typography style={{ alignSelf: "flex-end" }}>
       {dateIntToString(transaction.date)}
-    </div>
+    </Typography>
   </Card>
 );
 

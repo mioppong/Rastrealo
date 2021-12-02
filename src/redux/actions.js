@@ -11,6 +11,7 @@ export const login = (payload) => async (dispatch) => {
   });
 
   dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
+  dispatch({ type: types.CREATE_EXPORT_DATA, payload: response.data.transactions });
 };
 
 export const logout = () => async (dispatch) => {
