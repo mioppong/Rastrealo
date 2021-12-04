@@ -51,3 +51,27 @@ export const deleteTransaction = (transaction) => async (dispatch) => {
   });
   dispatch({ type: types.DELETE_TRANSACTION_SUCCESS, payload: { transaction } });
 };
+
+export const deleteUser = (user) => async (dispatch) => {
+
+  dispatch({ type: types.DELETE_USER_START });
+
+  const url = "https://618de9ebfe09aa001744092d.mockapi.io/createUser";
+
+  await axios.post(url, { user }).catch((err) => {
+    return dispatch({ type: types.DELETE_USER_FAILED });
+  });
+  dispatch({ type: types.DELETE_USER_SUCCESS, payload: { user } });
+};
+
+export const updateUser = (user) => async (dispatch) => {
+
+  dispatch({ type: types.UPDATE_USER_START });
+
+  const url = "https://618de9ebfe09aa001744092d.mockapi.io/createUser";
+
+  await axios.post(url, { user }).catch((err) => {
+    return dispatch({ type: types.UPDATE_USER_FAILED });
+  });
+  dispatch({ type: types.UPDATE_USER_SUCCESS, payload: { user } });
+};

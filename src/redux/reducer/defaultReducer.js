@@ -391,6 +391,16 @@ const defaultReducer = (state = initialState, action) => {
       );
 
       return newState;
+    case types.DELETE_USER_START:
+      return newState;
+    case types.DELETE_USER_SUCCESS:
+      const { user } = action.payload;
+      newState.users = newState.users.filter(
+        (item) => item.number !== user.number
+      );
+      return newState;
+    case types.DELETE_USER_FAILED:
+      return newState;
     case types.DELETE_TRANSACTION_FAILED:
       return newState;
     case types.CREATE_TRANSACTION_FAILED:
