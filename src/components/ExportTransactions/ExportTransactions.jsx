@@ -8,7 +8,7 @@ import FormLabel from "@mui/material/FormLabel";
 import { connect } from "react-redux";
 
 import { myColors } from "../../styles/myColors";
-import { dateIntToString } from "../../api";
+import { dateIntToString, exportAllData, exportTodayData } from "../../api";
 
 // Button and modal for exporting transactions in csv, excel format
 const ExportTransactions = (props) => {
@@ -29,7 +29,7 @@ const ExportTransactions = (props) => {
   return (
     <div>
       <Button
-        children="Export"
+        children="Export Transactions"
         onClick={() => setModalVisible(true)}
         variant="contained"
         size="large"
@@ -86,8 +86,8 @@ const ExportTransactions = (props) => {
                   filename={`${dateIntToString()}.csv`}
                   data={
                     exportType === "all"
-                      ? homeStore.exportingArray
-                      : homeStore.exportingTodayArray
+                      ? exportAllData(homeStore.transactions)
+                      : exportTodayData(homeStore.transactions)
                   }
                 >
                   Export to CSV

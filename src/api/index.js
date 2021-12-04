@@ -33,3 +33,67 @@ export const dateIntToString = (date) => {
   const formattedDate = `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
   return formattedDate;
 };
+export const exportAllData = (array) => {
+  let returningArray = [
+    [
+      "index",
+      "Sender",
+      "Receiver + Phone number",
+      "Sending Amount + Currency",
+      "Receiving Amount + Currency",
+      "Date",
+    ],
+  ];
+  Array.from(array).forEach((transaction, index) => {
+    const newItemInArray = [
+      `${index+ 1}`,
+      `${transaction.from.name} ${transaction.from.number}`,
+      `${transaction.to.name} ${transaction.to.number}`,
+      `${formattedMoney(transaction.amount)} ${transaction.currency}`,
+      `${formattedMoney(transaction.receivingAmount)} ${
+        transaction.receivingCurrency
+      }`,
+      `${dateIntToString(transaction.date)}`,
+    ];
+
+    returningArray.push(newItemInArray);
+  });
+
+  return returningArray;
+};
+export const exportTodayData = (array) => {
+  let returningArray = [
+    [
+      "index",
+      "Sender",
+      "Receiver + Phone number",
+      "Sending Amount + Currency",
+      "Receiving Amount + Currency",
+      "Date",
+    ],
+  ];
+
+  Array.from(array).forEach((transaction, index) => {
+    const newItemInArray = [
+      `${index+ 1}`,
+      `${transaction.from.name} ${transaction.from.number}`,
+      `${transaction.to.name} ${transaction.to.number}`,
+      `${formattedMoney(transaction.amount)} ${transaction.currency}`,
+      `${formattedMoney(transaction.receivingAmount)} ${
+        transaction.receivingCurrency
+      }`,
+      `${dateIntToString(transaction.date)}`,
+    ];
+    const itemsDate = new Date(transaction.date);
+    const currentDate = new Date();
+    if (
+      itemsDate.getFullYear() === currentDate.getFullYear() &&
+      itemsDate.getMonth() === currentDate.getMonth() &&
+      itemsDate.getDate() === currentDate.getDate()
+    ) {
+      returningArray.push(newItemInArray);
+    }
+  });
+  return returningArray;
+
+};
