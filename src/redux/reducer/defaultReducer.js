@@ -1,4 +1,4 @@
-import { formattedMoney } from "../../api";
+import { formattedMoney, dateIntToString } from "../../api";
 import types from "../actionTypes";
 
 export const initialState = {
@@ -12,7 +12,27 @@ export const initialState = {
   users: [],
   transactions: [],
   currencies: [],
-  exportingArray: [["id", "Sender", "Receiver + Phone number", "Sending Amount + Currency", "Receiving Amount + Currency", "Date"]],
+  exportingArray: [
+    [
+      "id",
+      "Sender",
+      "Receiver + Phone number",
+      "Sending Amount + Currency",
+      "Receiving Amount + Currency",
+      "Date",
+    ],
+  ],
+  exportingTodayArray: [
+    [
+      "id",
+      "Sender",
+      "Receiver + Phone number",
+      "Sending Amount + Currency",
+      "Receiving Amount + Currency",
+      "Date",
+    ],
+  ],
+
   loading: false,
 };
 
@@ -55,9 +75,20 @@ const defaultReducer = (state = initialState, action) => {
           `${transaction.from.name} ${transaction.from.number}`,
           `${transaction.to.name} ${transaction.to.number}`,
           `${formattedMoney(transaction.amount)} ${transaction.currency}`,
-          `${formattedMoney(transaction.receivingAmount)} ${transaction.receivingCurrency}`,
-          `${transaction.date}`,
+          `${formattedMoney(transaction.receivingAmount)} ${
+            transaction.receivingCurrency
+          }`,
+          `${dateIntToString(transaction.date)}`,
         ];
+        const itemsDate = new Date(transaction.date);
+        const currentDate = new Date();
+        if (
+          itemsDate.getFullYear() === currentDate.getFullYear() &&
+          itemsDate.getMonth() === currentDate.getMonth() &&
+          itemsDate.getDate() === currentDate.getDate()
+        ) {
+          newState.exportingTodayArray.push(newItemInArray);
+        }
 
         newState.exportingArray.push(newItemInArray);
       });
@@ -72,7 +103,31 @@ const defaultReducer = (state = initialState, action) => {
 
     case types.CREATE_TRANSACTION_SUCCESS:
       const { newTransaction } = action.payload;
+      const newItemInArray = [
+        `${newTransaction.id}`,
+        `${newTransaction.from.name} ${newTransaction.from.number}`,
+        `${newTransaction.to.name} ${newTransaction.to.number}`,
+        `${formattedMoney(newTransaction.amount)} ${newTransaction.currency}`,
+        `${formattedMoney(newTransaction.receivingAmount)} ${
+          newTransaction.receivingCurrency
+        }`,
+        `${dateIntToString(newTransaction.date)}`,
+      ];
+
+      const itemsDate = new Date(newTransaction.date);
+      const currentDate = new Date();
+
+      if (
+        itemsDate.getFullYear() === currentDate.getFullYear() &&
+        itemsDate.getMonth() === currentDate.getMonth() &&
+        itemsDate.getDate() === currentDate.getDate()
+      ) {
+        newState.exportingTodayArray.push(newItemInArray);
+      }
+
       newState.transactions.push(newTransaction);
+      newState.exportingArray.push(newItemInArray);
+
       newState.loading = false;
       return newState;
 

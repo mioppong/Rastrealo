@@ -2,9 +2,6 @@ import { Button, List, Paper } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
 import { Box } from "@mui/system";
-import { CSVLink } from "react-csv";
-
-import { dateIntToString } from "../../api";
 import AddUser from "../../components/AddUser/AddUser";
 import CreateTransaction from "../../components/CreateTransaction/CreateTransaction";
 import { createTransaction, login } from "../../redux/actions";
@@ -12,17 +9,7 @@ import "./DashboardStyle.css";
 import AllTransactions from "../../components/AllTransactions/AllTransactions";
 import { myColors } from "../../styles/myColors";
 import AllUsers from "../../components/AllUsers/AllUsers";
-
-// const csvData = [
-//   ["from", "to", "CAN", "USD", "GNC"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-// ];
+import ExportTransactions from "../../components/ExportTransactions/ExportTransactions";
 
 const Dashboard = (props) => {
   const { homeStore } = props;
@@ -68,25 +55,8 @@ const Dashboard = (props) => {
                   marginBottom: "10px",
                 }}
               />
-              <Button
-                children="Export"
-                onClick={() => console.log()}
-                variant="contained"
-                size="large"
-                style={{
-                  marginLeft: "10px",
-                  marginBottom: "10px",
-                  backgroundColor: myColors.fifth,
-                }}
-              >
-                <CSVLink
-                  style={{ flex: 1 }}
-                  filename={`${dateIntToString()}.csv`}
-                  data={homeStore.exportingArray}
-                >
-                  Export to CSV
-                </CSVLink>
-              </Button>
+
+              <ExportTransactions />
             </div>
 
             <Paper
