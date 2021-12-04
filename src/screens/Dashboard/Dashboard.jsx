@@ -1,7 +1,7 @@
 import { Button, List, Paper } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
-
+import { Box } from "@mui/system";
 import AddUser from "../../components/AddUser/AddUser";
 import CreateTransaction from "../../components/CreateTransaction/CreateTransaction";
 import { createTransaction, login } from "../../redux/actions";
@@ -9,17 +9,7 @@ import "./DashboardStyle.css";
 import AllTransactions from "../../components/AllTransactions/AllTransactions";
 import { myColors } from "../../styles/myColors";
 import AllUsers from "../../components/AllUsers/AllUsers";
-
-// const csvData = [
-//   ["from", "to", "CAN", "USD", "GNC"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-//   ["PRISCILLA OSEI", "HAMS OSEI 593814347", "150", "", "150"],
-// ];
+import ExportTransactions from "../../components/ExportTransactions/ExportTransactions";
 
 const Dashboard = (props) => {
   const { homeStore } = props;
@@ -33,7 +23,7 @@ const Dashboard = (props) => {
     marginLeft: "25px",
     padding: "1%",
     overflow: "hidden",
-    backgroundColor: "#f3e7fe",
+    backgroundColor: "#f2eff5",
   };
   const containerStyle = {
     display: "flex",
@@ -43,15 +33,15 @@ const Dashboard = (props) => {
 
   return (
     <div style={containerStyle}>
-      <Paper
+      <Box
         className="sideBarContainer"
-        style={{ padding: "1%", backgroundColor: "#f3e7fe" }}
+        style={{ padding: "1%", backgroundColor: "#f2eff5" }}
       >
         <AddUser />
         <CreateTransaction />
-      </Paper>
+      </Box>
 
-      <Paper style={rightSide}>
+      <Box style={rightSide}>
         <div style={{ display: "flex" }}>
           <div style={{ margin: "1%" }}>
             <div style={{ display: "flex" }}>
@@ -65,17 +55,8 @@ const Dashboard = (props) => {
                   marginBottom: "10px",
                 }}
               />
-              <Button
-                children="Export"
-                onClick={() => console.log(homeStore.transactions)}
-                variant="contained"
-                size="large"
-                style={{
-                  marginLeft: "10px",
-                  marginBottom: "10px",
-                  backgroundColor: myColors.fifth,
-                }}
-              />
+
+              <ExportTransactions />
             </div>
 
             <Paper
@@ -97,7 +78,7 @@ const Dashboard = (props) => {
             <div style={{ display: "flex" }}>
               <Button
                 children="Export"
-                onClick={() => console.log(homeStore.transactions)}
+                onClick={() => console.log()}
                 variant="contained"
                 size="large"
                 style={{
@@ -109,7 +90,7 @@ const Dashboard = (props) => {
             <Paper
               style={{
                 maxHeight: "80vh",
-                width: 350,
+                width: 300,
                 overflow: "auto",
                 display: "flex",
                 justifyContent: "center",
@@ -121,7 +102,7 @@ const Dashboard = (props) => {
             </Paper>
           </div>
         </div>
-      </Paper>
+      </Box>
     </div>
   );
 };
@@ -140,7 +121,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
-
-/* <CSVLink filename="mike.csv" data={csvData}>
-Export to CSV
-</CSVLink> */

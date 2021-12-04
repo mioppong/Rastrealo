@@ -5,10 +5,6 @@
   justify-content: center;
   flex: 1;
   display: flex;
-  /* -webkit-box-shadow: 5px 5px 15px 5px #0e387a; */
-  -webkit-box-shadow: 5px 5px 49px 5px #9fafca;
-  box-shadow: 5px 5px 49px 5px #9fafca;
-  border-radius: 20vh;
 }
 
 .loginContainer {

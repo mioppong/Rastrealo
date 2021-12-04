@@ -12,7 +12,7 @@ const EachTransaction = ({ transaction }) => (
       margin: 10,
       display: "flex",
       flexDirection: "column",
-      backgroundColor: myColors.fifth,
+      backgroundColor: "#f3e7fe",
       padding: "1%",
       width: 300,
       alignItems: "center",
@@ -51,9 +51,9 @@ const EachTransaction = ({ transaction }) => (
         {transaction.receivingCurrency}
       </Typography>
     </div>
-    <div style={{ alignSelf: "flex-end" }}>
+    <Typography style={{ alignSelf: "flex-end" }}>
       {dateIntToString(transaction.date)}
-    </div>
+    </Typography>
   </Card>
 );
 
@@ -65,6 +65,9 @@ const AllTransactions = ({ data, homeStore }) => {
       text="Loading your content..."
       styles={{ display: "flex" }}
     >
+      <Typography variant="h6" color={myColors.first}>
+        All Transactions
+      </Typography>
       {data.map((item, index) => {
         return <EachTransaction transaction={item} key={index} />;
       })}

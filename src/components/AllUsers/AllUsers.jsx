@@ -11,7 +11,7 @@ const EachUser = ({ user }) => {
         margin: 10,
         display: "flex",
         flexDirection: "column",
-        backgroundColor: myColors.tenth,
+        backgroundColor: "#f3e7fe",
         padding: "1%",
         width: 250,
         alignItems: "center",
@@ -35,7 +35,9 @@ const AllUsers = ({ data, homeStore }) => {
       text="Loading your content..."
       styles={{ display: "flex" }}
     >
-      {" "}
+      <Typography variant="h6" color={myColors.first}>
+        All Users
+      </Typography>
       {data.map((item, index) => {
         return <EachUser user={item} key={index} />;
       })}
