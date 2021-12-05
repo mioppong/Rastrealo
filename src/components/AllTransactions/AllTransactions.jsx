@@ -75,13 +75,13 @@ const EachTransaction = (props) => {
             {transaction.to.name} {`(${transaction.to.number})`}
           </Typography>
           <Typography style={{ fontWeight: "bold" }}>
-            {formattedMoney(transaction.receivingAmount)}
+            {formattedMoney(transaction.receivingAmount)}{" "}
             {transaction.receivingCurrency}
           </Typography>
         </div>
         <div style={bottomPart}>
           <Button style={{ color: "red" }} onClick={() => handleClickOpen()}>
-            <DeleteRounded fontSize="large" />
+            <DeleteRounded fontSize="medium" />
           </Button>
           <Typography style={{ fontWeight: "bold" }}>
             {dateIntToString(transaction.date)}

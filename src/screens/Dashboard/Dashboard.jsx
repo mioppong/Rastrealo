@@ -1,4 +1,4 @@
-import { List, Paper } from "@mui/material";
+import { Button, List, Paper } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
 import { Box } from "@mui/system";
@@ -39,6 +39,10 @@ const Dashboard = (props) => {
         <AddUser />
         <CreateTransaction />
         <ExportTransactions />
+        <Button
+          children="CHeck Users"
+          onClick={() => console.log(homeStore.users)}
+        />
       </Box>
 
       <Box style={rightSide}>

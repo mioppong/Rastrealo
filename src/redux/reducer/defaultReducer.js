@@ -379,7 +379,6 @@ const defaultReducer = (state = initialState, action) => {
       const { newTransaction } = action.payload;
       newState.transactions.push(newTransaction);
       newState.loading = false;
-
       return newState;
 
     case types.DELETE_TRANSACTION_START:
@@ -398,6 +397,28 @@ const defaultReducer = (state = initialState, action) => {
       newState.users = newState.users.filter(
         (item) => item.number !== user.number
       );
+      return newState;
+    case types.UPDATE_USER_START:
+      newState.loading = true;
+
+      return newState;
+    case types.UPDATE_USER_SUCCESS:
+      const { updatedUser } = action.payload;
+
+      newState.users.forEach((eachUser) => {
+        console.log('OLD user is', eachUser.id)
+        console.log('UPDATED user is', updatedUser.id)
+        if (eachUser.id === updatedUser.id) {
+         
+          eachUser.name = updatedUser.name;
+          eachUser.number = updatedUser.number;
+          eachUser.otherInfo = updatedUser.otherInfo;
+        }
+      });
+      newState.loading = false;
+
+      return newState;
+    case types.UPDATE_USER_FAILED:
       return newState;
     case types.DELETE_USER_FAILED:
       return newState;

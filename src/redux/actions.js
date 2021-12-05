@@ -64,14 +64,14 @@ export const deleteUser = (user) => async (dispatch) => {
   dispatch({ type: types.DELETE_USER_SUCCESS, payload: { user } });
 };
 
-export const updateUser = (user) => async (dispatch) => {
+export const updateUser = (updatedUser) => async (dispatch) => {
 
   dispatch({ type: types.UPDATE_USER_START });
 
   const url = "https://618de9ebfe09aa001744092d.mockapi.io/createUser";
 
-  await axios.post(url, { user }).catch((err) => {
+  await axios.post(url, { updatedUser }).catch((err) => {
     return dispatch({ type: types.UPDATE_USER_FAILED });
   });
-  dispatch({ type: types.UPDATE_USER_SUCCESS, payload: { user } });
+  dispatch({ type: types.UPDATE_USER_SUCCESS, payload: { updatedUser } });
 };
