@@ -76,7 +76,7 @@ const EachUser = (props) => {
           margin: 10,
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#f3e7fe",
+          backgroundColor: "#e7e6ff",
           padding: "1%",
           width: 250,
           alignItems: "center",
@@ -227,9 +227,6 @@ const AllUsers = ({ data, homeStore, deleteUser, updateUser }) => {
       text="Loading your content..."
       styles={{ display: "flex" }}
     >
-      <Typography variant="h6" color={myColors.first}>
-        All Users
-      </Typography>
       {data.map((item, index) => {
         return (
           <EachUser

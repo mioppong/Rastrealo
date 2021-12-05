@@ -1,4 +1,4 @@
-import { Button, List, Paper } from "@mui/material";
+import { Button, List, Paper, Typography } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
 import { Box } from "@mui/system";
@@ -9,6 +9,7 @@ import "./DashboardStyle.css";
 import AllTransactions from "../../components/AllTransactions/AllTransactions";
 import AllUsers from "../../components/AllUsers/AllUsers";
 import ExportTransactions from "../../components/ExportTransactions/ExportTransactions";
+import { myColors } from "../../styles/myColors";
 
 const Dashboard = (props) => {
   const { homeStore } = props;
@@ -17,38 +18,45 @@ const Dashboard = (props) => {
   // );
   const rightSide = {
     width: "100%",
-    height: "100vh",
-    maxHeight: "100vh",
+    height: "90vh",
     marginLeft: "25px",
     padding: "1%",
     overflow: "hidden",
-    backgroundColor: "#f2eff5",
+    borderRadius: "20px",
   };
   const containerStyle = {
     display: "flex",
     padding: "1%",
-    overflow: "hidden",
   };
 
   return (
     <div style={containerStyle}>
-      <Box
-        className="sideBarContainer"
-        style={{ padding: "1%", backgroundColor: "#f2eff5" }}
+      <Paper
+        style={{
+          padding: "1%",
+          width: "25vh",
+          height: "90vh",
+          borderRadius: 20,
+        }}
+        elevation={5}
       >
         <AddUser />
         <CreateTransaction />
         <ExportTransactions />
-      </Box>
+      </Paper>
 
-      <Box style={rightSide}>
+      <Paper style={rightSide} elevation={0}>
         <div style={{ display: "flex" }}>
           <div style={{ margin: "1%" }}>
-            <div style={{ display: "flex" }}></div>
+            <div style={{ display: "flex" }}>
+              <Typography variant="h6" color={myColors.first}>
+                All Transactions
+              </Typography>
+            </div>
 
             <Paper
               style={{
-                maxHeight: "80vh",
+                maxHeight: "85vh",
                 width: 350,
                 overflow: "auto",
                 display: "flex",
@@ -62,7 +70,12 @@ const Dashboard = (props) => {
           </div>
 
           <div style={{ margin: "1%" }}>
-            <div style={{ display: "flex" }}></div>
+            <div style={{ display: "flex" }}>
+              <Typography variant="h6" color={myColors.first}>
+                All Users
+              </Typography>
+            </div>
+
             <Paper
               style={{
                 maxHeight: "80vh",
@@ -78,7 +91,7 @@ const Dashboard = (props) => {
             </Paper>
           </div>
         </div>
-      </Box>
+      </Paper>
     </div>
   );
 };

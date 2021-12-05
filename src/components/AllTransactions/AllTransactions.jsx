@@ -23,7 +23,7 @@ const EachTransaction = (props) => {
     margin: 10,
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "#f3e7fe",
+    backgroundColor: "#e7e6ff",
     padding: "1%",
     width: 300,
     alignItems: "center",
@@ -131,9 +131,6 @@ const AllTransactions = ({ data, homeStore, deleteTransaction }) => {
       text="Loading your content..."
       styles={{ display: "flex" }}
     >
-      <Typography variant="h6" color={myColors.first}>
-        All Transactions
-      </Typography>
       {data.map((item, index) => {
         return (
           <EachTransaction
