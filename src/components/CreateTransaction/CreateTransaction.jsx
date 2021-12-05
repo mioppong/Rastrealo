@@ -113,6 +113,9 @@ const CreateTransaction = (props) => {
               overflow: "auto",
             }}
           >
+            <Typography variant="h6" color={myColors.first}>
+              Create Transaction
+            </Typography>
             <Autocomplete
               onChange={(event, value) => setSender(value)}
               getOptionLabel={(item) => `${item.name} (${item.number}) `}
