@@ -406,8 +406,6 @@ const defaultReducer = (state = initialState, action) => {
       const { updatedUser } = action.payload;
 
       newState.users.forEach((eachUser) => {
-        console.log('OLD user is', eachUser.id)
-        console.log('UPDATED user is', updatedUser.id)
         if (eachUser.id === updatedUser.id) {
          
           eachUser.name = updatedUser.name;
