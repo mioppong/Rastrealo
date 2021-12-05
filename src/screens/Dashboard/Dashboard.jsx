@@ -7,7 +7,6 @@ import CreateTransaction from "../../components/CreateTransaction/CreateTransact
 import { createTransaction, login } from "../../redux/actions";
 import "./DashboardStyle.css";
 import AllTransactions from "../../components/AllTransactions/AllTransactions";
-import { myColors } from "../../styles/myColors";
 import AllUsers from "../../components/AllUsers/AllUsers";
 import ExportTransactions from "../../components/ExportTransactions/ExportTransactions";
 
@@ -39,25 +38,17 @@ const Dashboard = (props) => {
       >
         <AddUser />
         <CreateTransaction />
+        <ExportTransactions />
+        <Button
+          children="CHeck Users"
+          onClick={() => console.log(homeStore.users)}
+        />
       </Box>
 
       <Box style={rightSide}>
         <div style={{ display: "flex" }}>
           <div style={{ margin: "1%" }}>
-            <div style={{ display: "flex" }}>
-              <Button
-                children="Sort"
-                onClick={() => console.log(homeStore.transactions)}
-                variant="contained"
-                size="large"
-                style={{
-                  backgroundColor: myColors.first,
-                  marginBottom: "10px",
-                }}
-              />
-
-              <ExportTransactions />
-            </div>
+            <div style={{ display: "flex" }}></div>
 
             <Paper
               style={{
@@ -75,18 +66,7 @@ const Dashboard = (props) => {
           </div>
 
           <div style={{ margin: "1%" }}>
-            <div style={{ display: "flex" }}>
-              <Button
-                children="Export"
-                onClick={() => console.log()}
-                variant="contained"
-                size="large"
-                style={{
-                  backgroundColor: myColors.fifth,
-                  marginBottom: "10px",
-                }}
-              />
-            </div>
+            <div style={{ display: "flex" }}></div>
             <Paper
               style={{
                 maxHeight: "80vh",

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { createUser } from "../../redux/actions";
 import { myColors } from "../../styles/myColors";
+import { generateID } from "../../api/index";
 
 const AddUser = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -44,7 +45,7 @@ const AddUser = (props) => {
   };
   const handleCreateUser = () => {
     if (checkData() === true) {
-      props.createUser({ name, number, otherInfo });
+      props.createUser({ id: generateID(), name, number, otherInfo });
       clearScreen();
     }
   };
