@@ -39,10 +39,6 @@ const Dashboard = (props) => {
         <AddUser />
         <CreateTransaction />
         <ExportTransactions />
-        <Button
-          children="CHeck Users"
-          onClick={() => console.log(homeStore.users)}
-        />
       </Box>
 
       <Box style={rightSide}>
