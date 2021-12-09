@@ -1,5 +1,5 @@
 import types from "../actionTypes";
-
+import { saveToken } from "../../api/localStorage";
 export const initialState = {
   accountOwnerInfo: {
     id: "",
@@ -342,23 +342,21 @@ const defaultReducer = (state = initialState, action) => {
   let newState = { ...state };
 
   switch (action.type) {
-    case types.LOGIN_START:
+    case types.MAKE_REQUEST_START:
+      newState.loading = true;
       return newState;
 
     case types.LOGIN_SUCCESS:
-      const { token, users, transactions, accountOwnerInfo } = action.payload;
+      const { users, transactions, token, accountOwnerInfo } = action.payload;
       newState.accountOwnerInfo = accountOwnerInfo;
       newState.token = token;
       newState.users = users;
       newState.transactions = transactions;
-
+      newState.loading = false;
+      saveToken(token);
       return newState;
 
     case types.LOGIN_FAILED:
-      return newState;
-
-    case types.CREATE_USER_START:
-      newState.loading = true;
       return newState;
 
     case types.CREATE_USER_SUCCESS:
@@ -371,50 +369,47 @@ const defaultReducer = (state = initialState, action) => {
     case types.CREATE_USER_FAILED:
       return newState;
 
-    case types.CREATE_TRANSACTION_START:
-      newState.loading = true;
-      return newState;
-
     case types.CREATE_TRANSACTION_SUCCESS:
       const { newTransaction } = action.payload;
       newState.transactions.push(newTransaction);
       newState.loading = false;
       return newState;
 
-    case types.DELETE_TRANSACTION_START:
-      return newState;
     case types.DELETE_TRANSACTION_SUCCESS:
       const { transaction } = action.payload;
       newState.transactions = newState.transactions.filter(
         (item) => item.id !== transaction.id
       );
+      newState.loading = false;
 
       return newState;
-    case types.DELETE_USER_START:
-      return newState;
+
     case types.DELETE_USER_SUCCESS:
       const { user } = action.payload;
       newState.users = newState.users.filter(
         (item) => item.number !== user.number
       );
-      return newState;
-    case types.UPDATE_USER_START:
-      newState.loading = true;
+      newState.loading = false;
 
       return newState;
     case types.UPDATE_USER_SUCCESS:
       const { updatedUser } = action.payload;
 
       newState.users.forEach((eachUser) => {
-        console.log('OLD user is', eachUser.id)
-        console.log('UPDATED user is', updatedUser.id)
         if (eachUser.id === updatedUser.id) {
-         
           eachUser.name = updatedUser.name;
           eachUser.number = updatedUser.number;
           eachUser.otherInfo = updatedUser.otherInfo;
         }
       });
+      newState.loading = false;
+
+      return newState;
+    case types.GET_DATA_SUCCESS:
+
+      newState.accountOwnerInfo = action.payload.accountOwnerInfo;
+      newState.users = action.payload.users;
+      newState.transactions = action.payload.transactions;
       newState.loading = false;
 
       return newState;
@@ -428,6 +423,8 @@ const defaultReducer = (state = initialState, action) => {
       return newState;
 
     case types.LOGOUT:
+      localStorage.removeItem("token");
+
       return {};
 
     default:

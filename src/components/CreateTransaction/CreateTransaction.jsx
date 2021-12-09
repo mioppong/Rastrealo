@@ -17,13 +17,11 @@ const CreateTransaction = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [sender, setSender] = useState();
   const [recipient, setRecipient] = useState();
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState(0);
   const [currency, setCurrency] = useState();
   const [errorMessage, setErrorMessage] = useState();
-  const [receivingAmount, setreceivingAmount] = useState();
+  const [receivingAmount, setreceivingAmount] = useState(0);
   const [receivingCurrency, setreceivingCurrency] = useState();
-
-  console.log(!sender);
   const { homeStore } = props;
 
   const clearScreen = () => {
@@ -113,6 +111,9 @@ const CreateTransaction = (props) => {
               overflow: "auto",
             }}
           >
+            <Typography variant="h6" color={myColors.first}>
+              Create Transaction
+            </Typography>
             <Autocomplete
               onChange={(event, value) => setSender(value)}
               getOptionLabel={(item) => `${item.name} (${item.number}) `}

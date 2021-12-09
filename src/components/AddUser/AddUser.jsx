@@ -75,6 +75,10 @@ const AddUser = (props) => {
               overflow: "auto",
             }}
           >
+            <Typography variant="h6" color={myColors.first}>
+              Create User
+            </Typography>
+
             <TextField
               label="Name"
               type="text"

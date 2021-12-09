@@ -1,13 +1,26 @@
 import { Button, TextField } from "@mui/material";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router";
+import { loadToken } from "../../api/localStorage";
 import { login } from "../../redux/actions";
 import "./WelcomeStyle.css";
+import config from "../../internet/config";
+import axios from "axios";
 
 const Welcome = (props) => {
+  const { homeStore } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const tokenExist = loadToken();
+
+  useEffect(() => {
+    if (tokenExist && homeStore.token) {
+      navigate("/dashboard");
+    }
+  }, [tokenExist, homeStore, navigate]);
 
   const loginButtonStyle = {
     height: 50,
@@ -19,6 +32,15 @@ const Welcome = (props) => {
     borderColor: "white",
     borderWidth: 1,
   };
+  const handleLogin = async () => {
+    // await props.login({ email, password });
+    const response = await axios
+      .post(config.backendURL, { email, password })
+      .catch((errorr) => console.log(errorr));
+
+    props.login(response.data);
+  };
+
   return (
     <div className="container">
       <div className="loginContainer">
@@ -41,7 +63,7 @@ const Welcome = (props) => {
         <div style={{ flexDirection: "row" }}>
           <Button
             children="login"
-            onClick={() => props.login({ email, password })}
+            onClick={handleLogin}
             style={loginButtonStyle}
           />
         </div>
@@ -51,9 +73,8 @@ const Welcome = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  homeStore: state.homeStore,
 });
-
 const mapDispatchToProps = (dispatch) => ({
   login: (payload) => {
     dispatch(login(payload));

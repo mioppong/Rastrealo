@@ -78,7 +78,6 @@ const ExportTransactions = (props) => {
                 size="large"
                 variant="contained"
                 children="done"
-                onClick={() => console.log("export type", exportType)}
                 style={{ margin: "10px", backgroundColor: myColors.first }}
               >
                 <CSVLink
