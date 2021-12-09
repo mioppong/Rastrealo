@@ -19,6 +19,7 @@ const App = (props) => {
   }, [tokenExist,dispatch, homeStore.token]);
   return (
     <Routes>
+      <Route path="/" element={<Welcome />} />
       <Route path="/welcome" element={<Welcome />} />
       <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
