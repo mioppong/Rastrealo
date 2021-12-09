@@ -19,6 +19,8 @@ const Welcome = (props) => {
   useEffect(() => {
     if (tokenExist && homeStore.token) {
       navigate("/dashboard");
+    } else {
+      navigate("/welcome");
     }
   }, [tokenExist, homeStore, navigate]);
 
