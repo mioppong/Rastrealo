@@ -36,6 +36,9 @@ const EachUser = (props) => {
   };
 
   const clearScreen = () => {
+    setName(user.name);
+    setNumber(user.number);
+    setOtherInfo(user.otherInfo);
     setEditModalVisivible(false);
     setErrorMessage();
   };
@@ -69,27 +72,25 @@ const EachUser = (props) => {
     }
   };
 
+  const cardStyle = {
+    margin: 10,
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "#e7e6ff",
+    padding: "1%",
+    width: 250,
+    alignItems: "center",
+    justifyContent: "center",
+  };
+  const insideCard = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  };
   return (
     <>
-      <Card
-        style={{
-          margin: 10,
-          display: "flex",
-          flexDirection: "column",
-          backgroundColor: "#e7e6ff",
-          padding: "1%",
-          width: 250,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+      <Card style={cardStyle}>
+        <div style={insideCard}>
           <Typography style={{ fontWeight: "bold" }}>{user.name}</Typography>
           <Button
             style={{ display: "flex" }}
@@ -116,7 +117,11 @@ const EachUser = (props) => {
 
       <Dialog open={dialog} keepMounted onClose={handleClose}>
         <DialogTitle>{"Delete this user"}</DialogTitle>
+
         <DialogContent>
+          <Typography color="hotpink" fontWeight="bold">
+            {user.name} {user.number}
+          </Typography>
           <DialogContentText>
             Are you sure you want to delete this user, after deleting, it can
             not be recovered
@@ -204,7 +209,7 @@ const EachUser = (props) => {
               <Button
                 children="cancel"
                 variant="contained"
-                onClick={() => setEditModalVisivible(false)}
+                onClick={() => clearScreen()}
                 style={{
                   margin: "10px",
                   backgroundColor: "red",
