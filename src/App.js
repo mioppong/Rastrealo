@@ -20,7 +20,7 @@ const App = (props) => {
   return (
     <Routes>
       <Route path="/welcome" element={<Welcome />} />
-      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
 };
