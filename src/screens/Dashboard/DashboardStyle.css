@@ -1,10 +1,12 @@
 .container {
-  flex-direction: row;
   display: flex;
-  padding: 1%;
+  flex: 1;
 }
 
 .sideBarContainer {
-  width: 25vh;
+  padding: 1%;
+  width: 10vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

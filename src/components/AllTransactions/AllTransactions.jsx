@@ -88,6 +88,7 @@ const EachTransaction = (props) => {
           </Typography>
         </div>
       </Card>
+
       <Dialog open={dialog} keepMounted onClose={handleClose}>
         <DialogTitle>{"Delete this transaction"}</DialogTitle>
         <DialogContent>
@@ -129,7 +130,7 @@ const AllTransactions = ({ data, homeStore, deleteTransaction }) => {
       active={homeStore.loading}
       spinner
       text="Loading your content..."
-      styles={{ display: "flex" }}
+      styles={{}}
     >
       {data.map((item, index) => {
         return (

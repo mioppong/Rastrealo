@@ -91,11 +91,10 @@ const CreateTransaction = (props) => {
       <Button
         children="Create Transaction"
         onClick={() => setModalVisible(true)}
-        variant="contained"
-        size="large"
+        variant="text"
+        size="medium"
         style={{
           margin: "10px",
-          backgroundColor: myColors.first,
         }}
       />
       <Modal open={modalVisible}>

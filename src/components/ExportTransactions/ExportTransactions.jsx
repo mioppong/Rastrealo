@@ -31,14 +31,12 @@ const ExportTransactions = (props) => {
       <Button
         children="Export Transactions"
         onClick={() => setModalVisible(true)}
-        variant="contained"
-        size="large"
+        variant="text"
+        size="medium"
         style={{
-          marginLeft: "10px",
-          marginBottom: "10px",
-          backgroundColor: myColors.fifth,
+          margin: "10px",
         }}
-      ></Button>
+      />
 
       <Modal open={modalVisible}>
         <div style={modalContainerStyle}>
