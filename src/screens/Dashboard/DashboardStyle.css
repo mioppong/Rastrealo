@@ -1,6 +1,6 @@
 .container {
-  display: flex;
-  flex: 1;
+  /* display: flex;
+  flex: 1; */
 }
 
 .sideBarContainer {
@@ -9,4 +9,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  position: fixed;
+  left: 0;
+  /* top: 50vh; */
 }

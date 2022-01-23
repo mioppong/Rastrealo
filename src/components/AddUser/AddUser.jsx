@@ -54,11 +54,11 @@ const AddUser = (props) => {
       <Button
         children="Create User"
         onClick={() => setModalVisible(true)}
-        variant="contained"
-        size="large"
+        variant="text"
+        size="medium"
         style={{
           margin: "10px",
-          backgroundColor: myColors.fifth,
+          color: myColors.third,
         }}
       />
 
