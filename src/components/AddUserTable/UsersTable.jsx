@@ -3,6 +3,7 @@ import DataTable from "react-data-table-component";
 import { useSelector } from "react-redux";
 import { dateIntToString } from "../../api";
 import Arrow from "../Icons/Arrow";
+import { Audio } from "react-loader-spinner";
 
 const customStyles = {
   headCells: {
@@ -49,18 +50,21 @@ const columns = [
 const UsersTable = () => {
   const homeStore = useSelector((state) => state.homeStore);
   const { users, loading } = homeStore;
-  return !loading ? (
-    <DataTable
-      customStyles={{ backgroundColor: "blue" }}
-      style={{ paddingLeft: 10, paddingRight: 10 }}
-      sortIcon={<Arrow />}
-      columns={columns}
-      data={users}
-      customStyles={customStyles}
-      highlightOnHover
-      pagination
-    />
-  ) : null;
+  return (
+    <>
+      <DataTable
+        progressPending={loading}
+        customStyles={{ backgroundColor: "blue" }}
+        style={{ paddingLeft: 10, paddingRight: 10 }}
+        sortIcon={<Arrow />}
+        columns={columns}
+        data={users}
+        customStyles={customStyles}
+        highlightOnHover
+        pagination
+      />
+    </>
+  );
 };
 
 export default UsersTable;

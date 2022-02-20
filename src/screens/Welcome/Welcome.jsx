@@ -1,5 +1,4 @@
 import { Button, TextField } from "@mui/material";
-
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router";
@@ -35,12 +34,13 @@ const Welcome = (props) => {
     borderWidth: 1,
   };
   const handleLogin = async () => {
-    // await props.login({ email, password });
     const response = await axios
-      .post(config.backendURL, { email, password })
+      .post(config.backendURL)
       .catch((errorr) => console.log(errorr));
 
+    console.log("datais", response.data);
     props.login(response.data);
+    navigate("/dashboard");
   };
 
   return (

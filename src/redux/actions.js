@@ -1,11 +1,9 @@
 import axios from "axios";
 import types from "./actionTypes";
 
-const makeRequest = () => async (dispatch) => {
-  dispatch({ type: types.MAKE_REQUEST_START });
-};
 
 export const login = (payload) => async (dispatch) => {
+  dispatch({ type: types.MAKE_REQUEST_START });
   dispatch({ type: types.LOGIN_SUCCESS, payload: payload });
 };
 
@@ -14,9 +12,9 @@ export const logout = () => async (dispatch) => {
 };
 
 export const createUser = (payload) => async (dispatch) => {
-  makeRequest();
+  dispatch({ type: types.MAKE_REQUEST_START });
 
-  const url = "https://618de9ebfe09aa001744092d.mockapi.io/createUser";
+  const url = "https://61aecea833653500172f9fbf.mockapi.io/loginRastrealo";
 
   await axios.post(url, { payload }).catch((err) => {
     return dispatch({ type: types.CREATE_USER_FAILED });
@@ -25,9 +23,9 @@ export const createUser = (payload) => async (dispatch) => {
 };
 
 export const createTransaction = (payload) => async (dispatch) => {
-  makeRequest();
+  dispatch({ type: types.MAKE_REQUEST_START });
 
-  const url = "https://618de9ebfe09aa001744092d.mockapi.io/createUser";
+  const url = "https://61aecea833653500172f9fbf.mockapi.io/loginRastrealo";
 
   await axios.post(url, { payload }).catch((err) => {
     return dispatch({ type: types.CREATE_TRANSACTION_FAILED });
@@ -38,9 +36,9 @@ export const createTransaction = (payload) => async (dispatch) => {
   });
 };
 export const deleteTransaction = (transaction) => async (dispatch) => {
-  makeRequest();
+  dispatch({ type: types.MAKE_REQUEST_START });
 
-  const url = "https://618de9ebfe09aa001744092d.mockapi.io/createUser";
+  const url = "https://61aecea833653500172f9fbf.mockapi.io/loginRastrealo";
 
   await axios.post(url, { transaction }).catch((err) => {
     return dispatch({ type: types.DELETE_TRANSACTION_FAILED });
@@ -52,9 +50,9 @@ export const deleteTransaction = (transaction) => async (dispatch) => {
 };
 
 export const deleteUser = (user) => async (dispatch) => {
-  makeRequest();
+  dispatch({ type: types.MAKE_REQUEST_START });
 
-  const url = "https://618de9ebfe09aa001744092d.mockapi.io/createUser";
+  const url = "https://61aecea833653500172f9fbf.mockapi.io/loginRastrealo";
 
   await axios.post(url, { user }).catch((err) => {
     return dispatch({ type: types.DELETE_USER_FAILED });
@@ -63,9 +61,9 @@ export const deleteUser = (user) => async (dispatch) => {
 };
 
 export const updateUser = (updatedUser) => async (dispatch) => {
-  makeRequest();
+  dispatch({ type: types.MAKE_REQUEST_START });
 
-  const url = "https://618de9ebfe09aa001744092d.mockapi.io/createUser";
+  const url = "https://61aecea833653500172f9fbf.mockapi.io/loginRastrealo";
 
   await axios.post(url, { updatedUser }).catch((err) => {
     return dispatch({ type: types.UPDATE_USER_FAILED });
@@ -74,7 +72,7 @@ export const updateUser = (updatedUser) => async (dispatch) => {
 };
 
 export const getData = () => async (dispatch) => {
-  makeRequest();
+  dispatch({ type: types.MAKE_REQUEST_START });
 
   const url = "https://61aecea833653500172f9fbf.mockapi.io/getdata";
 

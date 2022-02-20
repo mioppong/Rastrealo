@@ -60,6 +60,12 @@ const columns = [
     sortable: true,
   },
   {
+    name: <ColumnTitleText text={"Amount Sent"} />,
+    selector: (row) => row.amount,
+    sortable: true,
+    cell: (row) => <CustomText text={formattedMoney(row.amount)} />,
+  },
+  {
     name: <ColumnTitleText text={"Currency"} />,
     selector: (row) => row.currency,
     sortable: true,
@@ -67,10 +73,10 @@ const columns = [
   },
 
   {
-    name: <ColumnTitleText text={"Amount"} />,
-    selector: (row) => row.amount,
+    name: <ColumnTitleText text={"Amount Received"} />,
+    selector: (row) => row.receivingAmount,
     sortable: true,
-    cell: (row) => <CustomText text={formattedMoney(row.amount)} />,
+    cell: (row) => <CustomText text={formattedMoney(row.receivingAmount)} />,
   },
 ];
 

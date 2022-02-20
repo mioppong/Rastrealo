@@ -35,6 +35,7 @@ const ExportTransactions = (props) => {
         size="medium"
         style={{
           margin: "10px",
+          color: myColors.third,
         }}
       />
 

@@ -95,6 +95,7 @@ const CreateTransaction = (props) => {
         size="medium"
         style={{
           margin: "10px",
+          color: myColors.third,
         }}
       />
       <Modal open={modalVisible}>

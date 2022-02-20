@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 import { store } from "./redux/store";
 import { loadToken } from "./api/localStorage";
-import { Welcome, Dashboard } from "./screens";
+import { Welcome,DashboardTest } from "./screens";
 import { getData } from "./redux/actions";
 
 const App = (props) => {
@@ -21,7 +21,7 @@ const App = (props) => {
     <Routes>
       <Route path="/" element={<Welcome />} />
       <Route path="/welcome" element={<Welcome />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={<DashboardTest />} />
     </Routes>
   );
 };

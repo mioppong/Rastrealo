@@ -1,5 +1,32 @@
-import { Button, List, Paper, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import { Button, Paper } from "@mui/material";
+
+import { TextField } from "@mui/material";
+
+import {
+  AppBar,
+  Toolbar,
+  Avatar,
+  Box,
+  Divider,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  makeStyles,
+  CssBaseline,
+  Drawer,
+  Typography,
+} from "@material-ui/core";
+import {
+  Apps,
+  Menu,
+  ContactMail,
+  AssignmentInd,
+  Home,
+  MailOutlineOutlined,
+} from "@material-ui/icons";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import AddUser from "../../components/AddUser/AddUser";
@@ -17,6 +44,7 @@ import UsersTable from "../../components/AddUserTable/UsersTable";
 import StickyBox from "react-sticky-box";
 const Dashboard = (props) => {
   const { homeStore, logout } = props;
+  const [sidebar, setSidebar] = useState(false);
   const navigate = useNavigate();
   const tokenExist = loadToken();
 
@@ -30,12 +58,26 @@ const Dashboard = (props) => {
     }
   }, [tokenExist, navigate]);
 
-  const rightSide = {
-    width: "90vw",
-    padding: "4%",
-    // backgroundColor: "#F6F7F9",
-    backgroundColor: "green",
+  const container = {
+    height: "100vh",
+    overflow: "auto",
+    backgroundColor: "#f2f2f2",
   };
+  const insideContainer = {
+    display: "flex",
+    alignItems: "flex-start",
+  };
+
+  const leftSide = {
+    width: "12vw",
+
+    height: "100vh",
+  };
+  const rightSide = {
+    width: "88vw",
+    padding: "2%",
+  };
+
   const tableHeader = {
     display: "flex",
     alignItems: "center",
@@ -50,43 +92,64 @@ const Dashboard = (props) => {
     logout();
   };
 
+  const toggleSidebar = () => {
+    setSidebar(!sidebar);
+  };
+
+  const MySideBar = ({ open }) => (
+    <Drawer variant="permanent" open={open}>
+      <List>
+        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? (
+                <MailOutlineOutlined />
+              ) : (
+                <MailOutlineOutlined />
+              )}
+            </ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </Drawer>
+  );
+
   return (
-    <div className="container">
-      {/* <Paper className="sideBarContainer">
-        <Button style={{ color: myColors.fifth }} onClick={handleLogout}>
-          <SentimentVeryDissatisfiedRounded fontSize="large" />
-          <Typography fontWeight="bold">Settings</Typography>
-        </Button>
-        <div
-          style={{
-            width: "100%",
-            height: "50px",
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "auto",
-          }}
-        >
-          <Button style={{ color: myColors.fifth }} onClick={handleLogout}>
-            <SentimentVeryDissatisfiedRounded fontSize="large" />
-            <Typography fontWeight="bold">Logout</Typography>
-          </Button>
-        </div>
-      </Paper> */}
-      <div
-        style={{ height: "100vh", overflow: "auto", backgroundColor: "brown" }}
-      >
-        <div style={{ display: "flex", alignItems: "flex-start" }}>
-          <StickyBox
-            style={{ width: "10vw", backgroundColor: "green", height: "100vh" }}
-          >
-            Sidebar
+    <>
+      <div style={container}>
+        <div style={insideContainer}>
+          <StickyBox style={leftSide}>
+            {/* <div
+              style={{
+                height: 120,
+                width: "100%",
+                backgroundColor: "red",
+                borderBottomColor: "blue",
+                borderBottomWidth: 1,
+              }}
+            >
+              LOGO HERE
+            </div> */}
           </StickyBox>
-          <div style={{ width: "90vw", border: "3px solid blue" }}>
-            Main Content
+          <MySideBar open={sidebar} />
+
+          <div style={rightSide}>
+            <Button onClick={toggleSidebar}>Hello</Button>
+            <Typography
+              variant="h4"
+              children="Dashboard"
+              style={{
+                marginBottom: 20,
+                marginTop: 20,
+                color: "#404040",
+                fontWeight: "bold",
+              }}
+            />
             <Paper style={{ width: "100%", marginBottom: 10 }}>
               <div style={tableHeader}>
                 <Typography
-                  style={{ fontSize: 20, fontWeight: "bold", color: "gray" }}
+                  style={{ fontSize: 20, color: "#404040" }}
                   children="Transaction Overview"
                 />
 
@@ -97,44 +160,26 @@ const Dashboard = (props) => {
               </div>
               <MyTable />
             </Paper>
-            <Paper style={{ width: "100%", marginBottom: 10 }}>
+            <Paper style={{ width: "50%", marginBottom: 10 }}>
               <div style={tableHeader}>
                 <Typography
                   style={{ fontSize: 20, fontWeight: "bold", color: "gray" }}
-                  children="Transaction Overview"
+                  children="Users"
                 />
 
                 <div style={{ display: "flex" }}>
-                  <ExportTransactions />
-                  <CreateTransaction />
+                  <AddUser />
                 </div>
               </div>
-              <MyTable />
-            </Paper>
-            <Paper style={{ width: "100%", marginBottom: 10 }}>
-              <div style={tableHeader}>
-                <Typography
-                  style={{ fontSize: 20, fontWeight: "bold", color: "gray" }}
-                  children="Transaction Overview"
-                />
 
-                <div style={{ display: "flex" }}>
-                  <ExportTransactions />
-                  <CreateTransaction />
-                </div>
-              </div>
-              <MyTable />
+              <UsersTable />
             </Paper>
           </div>
         </div>
       </div>
 
       {/* <div style={rightSide}>
-        <Typography
-          variant="h4"
-          children="Dashboard"
-          style={{ marginBottom: 20, marginTop: 20, color: "#404040" }}
-        />
+      
         <div style={{}}>
           <Paper style={{ width: "100%", marginBottom: 10 }}>
             <div style={tableHeader}>
@@ -167,7 +212,7 @@ const Dashboard = (props) => {
           </Paper>
         </div>
       </div> */}
-    </div>
+    </>
   );
 };
 
