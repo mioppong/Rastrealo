@@ -20,7 +20,11 @@ import { logout } from "../../redux/actions";
 import { useNavigate } from "react-router";
 import { loadToken } from "../../api/localStorage";
 import { useEffect } from "react";
-import { InsertEmoticonSharp } from "@material-ui/icons";
+import {
+  DashboardRounded,
+  ExitToAppRounded,
+  InsertEmoticonSharp,
+} from "@material-ui/icons";
 
 const drawerWidth = 200;
 
@@ -78,8 +82,10 @@ export default function MiniDrawer(props) {
   const navigate = useNavigate();
   const tokenExist = loadToken();
   const homeStore = useSelector((state) => state.homeStore);
-  console.log("loadiiing", homeStore.loading);
+
   useEffect(() => {
+    console.log("dfdf", homeStore.users);
+
     if (!tokenExist) {
       navigate("/welcome");
     }
@@ -106,23 +112,32 @@ export default function MiniDrawer(props) {
         <Divider />
 
         <List>
-          <ListItem button onClick={handleLogout}>
+          <ListItem button onClick={() => navigate("/dashboard")}>
             <ListItemIcon>
-              <InsertEmoticonSharp />
+              <DashboardRounded />
             </ListItemIcon>
             <ListItemText primary={"Dashboard"} />
           </ListItem>
         </List>
+
+        <ListItem button onClick={handleLogout}>
+          <ListItemIcon>
+            <ExitToAppRounded />
+          </ListItemIcon>
+          <ListItemText primary={"Logout"} />
+        </ListItem>
       </Drawer>
 
-      <Box component="main" overflow={"auto"} sx={{ padding: 5 }}>
-        <Typography variant="h4">DashBoard</Typography>
+      <Box component="main" overflow={"auto"} sx={{ padding: 2 }}>
+        <Typography color={"#333333"} variant="h4">
+          DashBoard
+        </Typography>
         <List>
           <div style={{ display: "flex", flex: 1 }}>
             <Paper style={{ width: 1000, margin: 10 }}>
               <div style={tableHeader}>
                 <Typography
-                  style={{ fontSize: 20, color: "#404040" }}
+                  style={{ fontSize: 20, fontWeight: "bold", color: "gray" }}
                   children="Transaction Overview"
                 />
 
@@ -134,20 +149,22 @@ export default function MiniDrawer(props) {
               <MyTable />
             </Paper>
 
-            <Paper style={{ width: 500, margin: 10 }}>
-              <div style={tableHeader}>
-                <Typography
-                  style={{ fontSize: 20, fontWeight: "bold", color: "gray" }}
-                  children="Users"
-                />
+            <div>
+              <Paper style={{ width: 500, margin: 10 }}>
+                <div style={tableHeader}>
+                  <Typography
+                    style={{ fontSize: 20, fontWeight: "bold", color: "gray" }}
+                    children="Users"
+                  />
 
-                <div style={{ display: "flex" }}>
-                  <AddUser />
+                  <div style={{ display: "flex" }}>
+                    <AddUser />
+                  </div>
                 </div>
-              </div>
 
-              <UsersTable />
-            </Paper>
+                <UsersTable />
+              </Paper>
+            </div>
           </div>
         </List>
       </Box>

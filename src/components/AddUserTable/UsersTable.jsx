@@ -49,11 +49,11 @@ const columns = [
 
 const UsersTable = () => {
   const homeStore = useSelector((state) => state.homeStore);
-  const { users, loading } = homeStore;
+  const { users, userLoading } = homeStore;
   return (
     <>
       <DataTable
-        progressPending={loading}
+        progressPending={userLoading}
         customStyles={{ backgroundColor: "blue" }}
         style={{ paddingLeft: 10, paddingRight: 10 }}
         sortIcon={<Arrow />}

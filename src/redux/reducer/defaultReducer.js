@@ -10,8 +10,7 @@ export const initialState = {
   token: "",
   users: [],
   transactions: [],
-  currencies: [
-   
+  currencies: [   
   ],
   exportingArray: [
     [
@@ -35,6 +34,8 @@ export const initialState = {
   ],
 
   loading: false,
+  userLoading: false,
+  transactionLoading: false
 };
 
 const defaultReducer = (state = initialState, action) => {
@@ -60,11 +61,17 @@ const defaultReducer = (state = initialState, action) => {
     case types.LOGIN_FAILED:
       return newState;
 
+    case types.CREATE_TRANSACTION_START:
+      newState.transactionLoading = true
+      return newState
+    case types.CREATE_USER_START:
+      newState.userLoading = true
+      return newState
+
     case types.CREATE_USER_SUCCESS:
       const { newUser } = action.payload;
       newState.users.push(newUser);
-      newState.loading = false;
-
+      newState.userLoading = false;
       return newState;
 
     case types.CREATE_USER_FAILED:
@@ -73,7 +80,7 @@ const defaultReducer = (state = initialState, action) => {
     case types.CREATE_TRANSACTION_SUCCESS:
       const { newTransaction } = action.payload;
       newState.transactions.push(newTransaction);
-      newState.loading = false;
+      newState.transactionLoading = false;
       return newState;
 
     case types.DELETE_TRANSACTION_SUCCESS:
@@ -81,7 +88,7 @@ const defaultReducer = (state = initialState, action) => {
       newState.transactions = newState.transactions.filter(
         (item) => item.id !== transaction.id
       );
-      newState.loading = false;
+      newState.transactionLoading = false;
 
       return newState;
 
@@ -125,7 +132,6 @@ const defaultReducer = (state = initialState, action) => {
 
     case types.LOGOUT:
       localStorage.removeItem("token");
-
       return {};
 
     default:
